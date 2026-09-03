@@ -29,6 +29,40 @@ The system quantifies Fukui Prefecture's structural tourism deficit: the **¥11.
 
 ---
 
+## Quickstart: Running the Application Locally
+
+The project includes an interactive web dashboard powered by pre-processed telemetry and machine learning models stored in `public/data/dashboard_data.json`.
+
+### 1. Preview the Web Dashboard
+
+You do not need to re-run the entire data ingestion or ML training pipeline to develop or test the dashboard UI:
+
+```bash
+# From the repository root, start a local HTTP server:
+python -m http.server 8000
+```
+
+Open your browser and navigate to:
+
+```plaintext
+http://localhost:8000/public/
+```
+
+* **Entry Point:** `public/index.html`
+* **Static Assets:** `public/`
+* **Data Payload:** `public/data/dashboard_data.json`
+
+### 2. (Optional) Re-generating Model Telemetry
+
+If you are modifying model architectures or feature engineering:
+* **Script:** `scripts/generate_report_data.py`
+* **Prerequisites:** Sibling data repositories (`fukui-kanko-people-flow-data`, `opendata`, etc.) mounted in your workspace directory.
+* **Target Output:** Re-generates `public/data/dashboard_data.json`
+
+---
+
+---
+
 ## 1. Theoretical Framework: The Distributed Human Data Engine (DHDE)
 
 The DHDE integrates four sensor modalities into a single analytical pipeline:
