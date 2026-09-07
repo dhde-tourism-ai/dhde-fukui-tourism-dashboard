@@ -2,15 +2,29 @@
 
 All functions accept a ``daily`` DataFrame and return an augmented copy.
 Calendar features, weather severity, rolling/lag features, interaction
-terms, and day-of-week mean encoding are computed here.
+terms, day-of-week mean encoding, and Node B hotel-reservation lag
+features are computed here.
 """
 
 from __future__ import annotations
+
+from pathlib import Path
 
 import jpholiday
 import pandas as pd
 
 from .report import Reporter
+
+# The only node hotel-reservation features may attach to. Any node_key
+# other than this is a no-op in add_hotel_lag_features / build_features —
+# that is the isolation guarantee, enforced in code rather than by caller
+# discipline, so the signal cannot leak into Nodes A, C, or D.
+HOTEL_FEATURE_NODE = "fukui_station"
+
+HOTEL_FEATURE_COLS = [
+    "hotel_reserve_lag1", "hotel_reserve_lag7", "hotel_reserve_roll7",
+    "hotel_checkin_lag1", "hotel_checkin_lag7", "hotel_checkin_roll7",
+]
 
 
 def add_calendar_features(daily: pd.DataFrame) -> pd.DataFrame:
@@ -151,6 +165,116 @@ def add_dow_mean_encoding(daily: pd.DataFrame) -> pd.DataFrame:
     return daily
 
 
+# ── Node B hotel reservation features ────────────────────────────────────────
+
+def load_hotel_reservations(csv_path: str | Path) -> pd.DataFrame:
+    """Load Fukui Station hotel reservation telemetry from a local CSV.
+
+    Args:
+        csv_path: Path to ``latest_rsv_sum.csv``. Expected columns:
+            ``date_visit``, ``n_stay``, ``n_people``, ``n_room``,
+            ``amount_fee``, ``n_reserve``.
+
+    Returns:
+        DataFrame with a normalized ``date`` column plus the numeric
+        reservation columns, de-duplicated by date and sorted ascending.
+        Returns an empty (but correctly-shaped) DataFrame if the file is
+        missing, unreadable, or has no parseable rows — callers should
+        treat that the same as "no hotel signal available" rather than
+        special-casing it.
+    """
+    csv_path = Path(csv_path)
+    numeric_cols = ["n_stay", "n_people", "n_room", "amount_fee", "n_reserve"]
+    empty = pd.DataFrame(columns=["date", *numeric_cols])
+
+    if not csv_path.exists():
+        return empty
+
+    try:
+        df = pd.read_csv(csv_path)
+    except Exception:
+        return empty
+
+    if df.empty or len(df.columns) == 0:
+        return empty
+
+    date_col = next(
+        (c for c in df.columns if any(t in str(c).lower() for t in ("date", "visit"))),
+        df.columns[0],
+    )
+    df["date"] = pd.to_datetime(df[date_col], errors="coerce").dt.normalize()
+    df = df.dropna(subset=["date"])
+    if df.empty:
+        return empty
+
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+        else:
+            df[col] = 0.0
+
+    return (
+        df[["date", *numeric_cols]]
+        .groupby("date", as_index=False)
+        .sum()
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+
+
+def add_hotel_lag_features(
+    daily: pd.DataFrame,
+    hotel: pd.DataFrame | None,
+    *,
+    node_key: str,
+) -> tuple[pd.DataFrame, list[str]]:
+    """Add hotel booking/check-in lag + rolling features — Node B only.
+
+    Adds t-1, t-7, and a 7-day rolling average for both reservation volume
+    (``n_reserve``, i.e. bookings) and stay volume (``n_stay``, i.e.
+    check-ins).
+
+    Args:
+        daily: Node daily DataFrame with a ``date`` column.
+        hotel: Output of ``load_hotel_reservations``, or ``None``.
+        node_key: The node this call is being run for. This is the
+            isolation guard: any value other than ``HOTEL_FEATURE_NODE``
+            (``"fukui_station"``) returns ``daily`` completely unchanged and
+            an empty feature-column list, regardless of what ``hotel``
+            contains — so passing hotel data for Node A/C/D is harmless.
+
+    Returns:
+        Tuple of ``(daily_with_hotel_features, hotel_feature_col_names)``.
+    """
+    if node_key != HOTEL_FEATURE_NODE:
+        return daily, []
+
+    daily = daily.copy()
+
+    if hotel is None or hotel.empty:
+        for col in HOTEL_FEATURE_COLS:
+            daily[col] = 0.0
+        return daily, HOTEL_FEATURE_COLS
+
+    hotel = hotel.sort_values("date").copy()
+    hotel["hotel_reserve_lag1"] = hotel["n_reserve"].shift(1)
+    hotel["hotel_reserve_lag7"] = hotel["n_reserve"].shift(7)
+    hotel["hotel_reserve_roll7"] = (
+        hotel["n_reserve"].shift(1).rolling(7, min_periods=1).mean()
+    )
+    hotel["hotel_checkin_lag1"] = hotel["n_stay"].shift(1)
+    hotel["hotel_checkin_lag7"] = hotel["n_stay"].shift(7)
+    hotel["hotel_checkin_roll7"] = (
+        hotel["n_stay"].shift(1).rolling(7, min_periods=1).mean()
+    )
+
+    daily = pd.merge(
+        daily, hotel[["date", *HOTEL_FEATURE_COLS]], on="date", how="left"
+    )
+    daily[HOTEL_FEATURE_COLS] = daily[HOTEL_FEATURE_COLS].fillna(0.0)
+    return daily, HOTEL_FEATURE_COLS
+
+
 # ── Convenience wrapper ──────────────────────────────────────────────────────
 
 def build_features(
@@ -159,19 +283,28 @@ def build_features(
     reporter: Reporter,
     *,
     cfg: dict | None = None,
+    node_key: str = "tojinbo",
+    hotel_reservations: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, list[str]]:
-    """Run the full feature-engineering pipeline.
+    """Run the full feature-engineering pipeline for one node.
 
     Args:
-        daily: Raw merged daily DataFrame.
+        daily: Raw merged daily DataFrame for a single node.
         route_col: RSI intent column name.
         reporter: ``Reporter`` instance.
         cfg: Optional config for custom thresholds.
+        node_key: Which of the 4 network nodes ``daily`` belongs to
+            (``"tojinbo"``, ``"fukui_station"``, ``"katsuyama"``,
+            ``"rainbow_line"``). Only ``"fukui_station"`` picks up hotel
+            reservation features — see ``add_hotel_lag_features``. Defaults
+            to ``"tojinbo"`` so existing callers are unaffected.
+        hotel_reservations: Output of ``load_hotel_reservations``. Ignored
+            for any node other than ``"fukui_station"``.
 
     Returns:
         Tuple of ``(daily_with_features, feature_col_names)``.
     """
-    reporter.section(2, "Feature Engineering")
+    reporter.section(2, f"Feature Engineering — {node_key}")
 
     thresholds = (cfg or {}).get("thresholds", {}).get("weather_severity", {})
 
@@ -192,6 +325,12 @@ def build_features(
     daily = add_interaction_features(daily, route_col)
     daily = add_dow_mean_encoding(daily)
 
+    daily, hotel_feature_cols = add_hotel_lag_features(
+        daily, hotel_reservations, node_key=node_key
+    )
+    if node_key == HOTEL_FEATURE_NODE:
+        reporter.log(f"Hotel reservation features attached ({node_key}): {hotel_feature_cols}")
+
     # Log DOW averages
     reporter.log("\nDay-of-week average counts:")
     dow_means = daily.groupby("dow")["count"].mean()
@@ -204,7 +343,7 @@ def build_features(
         "count", route_col, f"{route_col}_lag2", f"{route_col}_roll7",
         "precip", "temp", "sun", "wind",
         "is_weekend_or_holiday", "weather_severity", "dow_mean_count",
-    ]
+    ] + hotel_feature_cols
     corr_cols = [c for c in corr_cols if c in daily.columns]
     corr_matrix = daily[corr_cols].corr()
     reporter.log("\nCorrelation with 'count':")
@@ -224,7 +363,7 @@ def build_features(
         "dow_mean_count",
         "weekend_x_severity", "weekend_x_intent",
         "month",
-    ]
+    ] + hotel_feature_cols
     feature_cols = [c for c in feature_cols if c in daily.columns]
 
     return daily, feature_cols
