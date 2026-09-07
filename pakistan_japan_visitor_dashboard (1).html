@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAK ⟶ JPN · Visitor Arrivals Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --bg-2:#0d1015;
+    --panel:#181d26;
+    --panel-alt:#1d2330;
+    --line:#2b3242;
+    --line-soft:#232a37;
+    --ink:#eceef2;
+    --muted:#8b93a5;
+    --muted-2:#5f6779;
+    --amber:#f2a93b;
+    --amber-dim:#7a5b28;
+    --teal:#49b8ac;
+    --teal-dim:#2a5854;
+    --rose:#e2685a;
+    --rose-dim:#6e3a34;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{background:var(--bg);}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+
+  ::selection{ background:var(--amber-dim); color:var(--ink); }
+
+  a{ color:var(--amber); }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px 80px;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    padding:34px 0 22px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .route{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    font-family:var(--font-display);
+  }
+  .route .code{
+    font-size:clamp(32px,5vw,52px);
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  .route .code .arrow{ color:var(--amber); padding:0 6px; font-weight:500;}
+  .route .sub{
+    font-family:var(--font-body);
+    color:var(--muted);
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding-bottom:6px;
+  }
+  .masthead-right{
+    text-align:right;
+    font-size:12px;
+    color:var(--muted-2);
+    letter-spacing:0.04em;
+    padding-bottom:6px;
+  }
+  .masthead-right .status{
+    color:var(--teal);
+    font-weight:600;
+  }
+  .masthead-right .dot{
+    display:inline-block;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--teal);
+    margin-right:6px;
+    box-shadow:0 0 6px var(--teal);
+  }
+
+  /* ---------- KPI board ---------- */
+  .kpi-strip{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    border:1px solid var(--line);
+    border-top:none;
+    margin-bottom:44px;
+  }
+  .kpi{
+    padding:20px 18px;
+    border-right:1px solid var(--line);
+    position:relative;
+  }
+  .kpi:last-child{ border-right:none; }
+  .kpi-label{
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .kpi-value{
+    font-family:var(--font-mono);
+    font-variant-numeric:tabular-nums;
+    font-size:clamp(20px,2.4vw,28px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .kpi-delta{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    margin-top:6px;
+    font-weight:500;
+  }
+  .kpi-delta.up{ color:var(--teal); }
+  .kpi-delta.down{ color:var(--rose); }
+  .kpi-delta.flat{ color:var(--muted); }
+  .kpi-note{
+    font-size:11.5px;
+    color:var(--muted-2);
+    margin-top:4px;
+  }
+
+  @media (max-width: 900px){
+    .kpi-strip{ grid-template-columns:repeat(3,1fr); }
+    .kpi{ border-bottom:1px solid var(--line); }
+    .kpi:nth-child(3n){ border-right:none; }
+  }
+  @media (max-width: 560px){
+    .kpi-strip{ grid-template-columns:repeat(2,1fr); }
+    .kpi:nth-child(3n){ border-right:1px solid var(--line); }
+    .kpi:nth-child(2n){ border-right:none; }
+  }
+
+  /* ---------- Section framework ---------- */
+  section.panel{
+    margin-bottom:40px;
+  }
+  .panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:18px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .panel-head h2{
+    font-family:var(--font-display);
+    font-size:16px;
+    font-weight:600;
+    margin:0;
+    letter-spacing:0.01em;
+  }
+  .panel-head .tick{
+    color:var(--amber);
+    margin-right:8px;
+  }
+  .panel-head .desc{
+    font-size:12.5px;
+    color:var(--muted);
+    max-width:420px;
+    text-align:right;
+  }
+
+  .grid-2{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:860px){
+    .grid-2{ grid-template-columns:1fr; }
+  }
+
+  .toggle-row{
+    display:flex;
+    gap:2px;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+  }
+  .toggle-btn{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--muted);
+    padding:5px 12px;
+    cursor:pointer;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:0.03em;
+  }
+  .toggle-btn.active{
+    color:var(--bg);
+    background:var(--amber);
+    border-color:var(--amber);
+  }
+  .toggle-btn:hover:not(.active){
+    color:var(--ink);
+    border-color:var(--muted-2);
+  }
+
+  .chart-box{
+    position:relative;
+  }
+  svg text{
+    font-family:var(--font-body);
+    fill:var(--muted);
+  }
+  svg .tick-line{ stroke:var(--line-soft); stroke-width:1; }
+  svg .axis-line{ stroke:var(--line); stroke-width:1; }
+  svg rect, svg circle, svg path{
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+
+  .legend{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:10px;
+  }
+  .legend-item{ display:flex; align-items:center; gap:6px; }
+  .legend-swatch{ width:10px; height:10px; display:inline-block; }
+
+  .tooltip{
+    position:absolute;
+    pointer-events:none;
+    background:var(--panel-alt);
+    border:1px solid var(--line);
+    padding:8px 10px;
+    font-size:12px;
+    font-family:var(--font-mono);
+    color:var(--ink);
+    white-space:nowrap;
+    transform:translate(-50%,-115%);
+    opacity:0;
+    transition:opacity 0.1s ease;
+    z-index:10;
+  }
+  .tooltip .t-label{ color:var(--muted); font-family:var(--font-body); font-size:11px; margin-bottom:2px;}
+
+  .foot{
+    border-top:1px solid var(--line);
+    margin-top:20px;
+    padding-top:22px;
+    font-size:12px;
+    color:var(--muted-2);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .foot a{ color:var(--muted); }
+
+  .callout{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px dashed var(--line-soft);
+  }
+  .callout b{ color:var(--ink); font-weight:600; }
+  .callout .amber{ color:var(--amber); font-weight:600; }
+  .callout .teal{ color:var(--teal); font-weight:600; }
+  .callout .rose{ color:var(--rose); font-weight:600; }
+
+  /* flip-in animation for KPI values, single orchestrated moment */
+  @media (prefers-reduced-motion: no-preference){
+    .kpi-value, .route .code{
+      animation:flipin 0.5s ease both;
+    }
+  }
+  @keyframes flipin{
+    0%{ opacity:0; transform:translateY(6px); filter:blur(2px); }
+    100%{ opacity:1; transform:translateY(0); filter:blur(0); }
+  }
+
+  button:focus-visible, a:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="route">
+      <span class="code">PAK<span class="arrow">⟶</span>JPN</span>
+      <span class="sub">Visitor Arrivals Board</span>
+    </div>
+    <div class="masthead-right">
+      <div><span class="dot"></span><span class="status">Data through May 2026</span></div>
+      <div>Source: JNTO / Japan Ministry of Justice, foreign national statistics</div>
+    </div>
+  </header>
+
+  <div class="kpi-strip" id="kpiStrip"></div>
+
+  <!-- 1. Long-run trend -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="tick">▍</span>34-Year Arrivals Trend</h2>
+      <div class="toggle-row" id="trendToggle">
+        <button class="toggle-btn active" data-mode="arrivals">ARRIVALS</button>
+        <button class="toggle-btn" data-mode="growth">YoY %</button>
+      </div>
+    </div>
+    <div class="chart-box" id="trendChart"></div>
+    <div class="callout" id="trendCallout"></div>
+  </section>
+
+  <!-- 2. Seasonality + Purpose -->
+  <section class="panel grid-2">
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Monthly Seasonality</h2>
+        <div class="desc">Arrivals by month, 2023&ndash;2026</div>
+      </div>
+      <div class="chart-box" id="seasonChart"></div>
+      <div class="legend" id="seasonLegend"></div>
+    </div>
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Purpose of Visit</h2>
+        <div class="desc">Annual mix, 1992&ndash;2026</div>
+      </div>
+      <div class="chart-box" id="purposeChart"></div>
+      <div class="legend" id="purposeLegend"></div>
+    </div>
+  </section>
+
+  <!-- 2b. Purpose by month -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="tick">▍</span>Purpose Split by Month</h2>
+      <div class="desc">2022 snapshot &mdash; the only year this monthly-by-purpose file reconciles against</div>
+    </div>
+    <div class="chart-box" id="purposeMonthChart"></div>
+    <div class="legend" id="purposeMonthLegend"></div>
+  </section>
+
+  <!-- 3. Demographics -->
+  <section class="panel grid-2">
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Age &amp; Gender, 2024</h2>
+        <div class="desc">Entries by age band</div>
+      </div>
+      <div class="chart-box" id="pyramidChart"></div>
+      <div class="legend" id="pyramidLegend"></div>
+    </div>
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Gender Trend</h2>
+        <div class="desc">Total entries, 2013&ndash;2024</div>
+      </div>
+      <div class="chart-box" id="genderChart"></div>
+      <div class="legend" id="genderLegend"></div>
+    </div>
+  </section>
+
+  <!-- 4. Ports + Length of stay -->
+  <section class="panel grid-2">
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Ports of Entry, 2024</h2>
+        <div class="desc">Top gateways into Japan</div>
+      </div>
+      <div class="chart-box" id="portsChart"></div>
+    </div>
+    <div>
+      <div class="panel-head">
+        <h2><span class="tick">▍</span>Average Length of Stay</h2>
+        <div class="desc">Days per trip, 2012&ndash;2024</div>
+      </div>
+      <div class="chart-box" id="staysChart"></div>
+    </div>
+  </section>
+
+  <!-- 5. Context: share of Japan's total inbound -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="tick">▍</span>Pakistan's Share of Japan's Inbound Market</h2>
+      <div class="desc">Pakistan arrivals as % of all-country visitor arrivals to Japan, 1992&ndash;2026</div>
+    </div>
+    <div class="chart-box" id="shareChart"></div>
+    <div class="callout" id="shareCallout"></div>
+  </section>
+
+  <div class="foot">
+    <span>JNTO Pakistan market brief &middot; compiled from 9 source tables</span>
+    <span>Figures reflect Japan-side entry statistics, not Pakistan departure records</span>
+  </div>
+
+  <div class="callout" style="margin-top:14px; border-top:1px dashed var(--line-soft); padding-top:12px;">
+    <b>Reading note:</b> this brief blends two official series that measure related but different things. <span class="amber">Visitor Arrivals</span> (JNTO's tourism-market estimate) drives the arrivals trend, seasonality, purpose-of-visit and share-of-market charts. <span class="teal">Foreigners Entries</span> (Ministry of Justice immigration counts, which include residents, workers and students, not just tourists) drives the age/gender, gender-trend and ports-of-entry charts. The two are never summed together, and 2026 figures throughout are partial-year (through May).
+  </div>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script id="data-payload" type="application/json">{"annual": [{"year": 1992, "arrivals": 6711, "growth": null, "term": "Jan. - Dec."}, {"year": 1993, "arrivals": 5495, "growth": -18.11950529, "term": "Jan. - Dec."}, {"year": 1994, "arrivals": 4873, "growth": -11.319381256, "term": "Jan. - Dec."}, {"year": 1995, "arrivals": 4680, "growth": -3.96059922, "term": "Jan. - Dec."}, {"year": 1996, "arrivals": 5251, "growth": 12.200854701, "term": "Jan. - Dec."}, {"year": 1997, "arrivals": 6131, "growth": 16.758712626, "term": "Jan. - Dec."}, {"year": 1998, "arrivals": 6308, "growth": 2.886967868, "term": "Jan. - Dec."}, {"year": 1999, "arrivals": 6346, "growth": 0.602409639, "term": "Jan. - Dec."}, {"year": 2000, "arrivals": 6451, "growth": 1.654585566, "term": "Jan. - Dec."}, {"year": 2001, "arrivals": 6112, "growth": -5.254999225, "term": "Jan. - Dec."}, {"year": 2002, "arrivals": 5599, "growth": -8.393324607, "term": "Jan. - Dec."}, {"year": 2003, "arrivals": 5381, "growth": -3.89355242, "term": "Jan. - Dec."}, {"year": 2004, "arrivals": 5894, "growth": 9.533543951, "term": "Jan. - Dec."}, {"year": 2005, "arrivals": 6551, "growth": 11.14692908, "term": "Jan. - Dec."}, {"year": 2006, "arrivals": 7045, "growth": 7.540833461, "term": "Jan. - Dec."}, {"year": 2007, "arrivals": 7630, "growth": 8.303761533, "term": "Jan. - Dec."}, {"year": 2008, "arrivals": 7328, "growth": -3.958060288, "term": "Jan. - Dec."}, {"year": 2009, "arrivals": 7335, "growth": 0.095524017, "term": "Jan. - Dec."}, {"year": 2010, "arrivals": 7762, "growth": 5.821404226, "term": "Jan. - Dec."}, {"year": 2011, "arrivals": 8120, "growth": 4.612213347, "term": "Jan. - Dec."}, {"year": 2012, "arrivals": 9196, "growth": 13.251231527, "term": "Jan. - Dec."}, {"year": 2013, "arrivals": 9011, "growth": -2.011744237, "term": "Jan. - Dec."}, {"year": 2014, "arrivals": 9151, "growth": 1.553656642, "term": "Jan. - Dec."}, {"year": 2015, "arrivals": 10525, "growth": 15.014752486, "term": "Jan. - Dec."}, {"year": 2016, "arrivals": 11988, "growth": 13.90023753, "term": "Jan. - Dec."}, {"year": 2017, "arrivals": 13729, "growth": 14.52285619, "term": "Jan. - Dec."}, {"year": 2018, "arrivals": 15802, "growth": 15.099424576, "term": "Jan. - Dec."}, {"year": 2019, "arrivals": 17208, "growth": 8.897607898, "term": "Jan. - Dec."}, {"year": 2020, "arrivals": 6145, "growth": -64.289865179, "term": "Jan. - Dec."}, {"year": 2021, "arrivals": 4284, "growth": -30.284784378, "term": "Jan. - Dec."}, {"year": 2022, "arrivals": 11423, "growth": 166.643323996, "term": "Jan. - Dec."}, {"year": 2023, "arrivals": 21132, "growth": 84.995185153, "term": "Jan. - Dec."}, {"year": 2024, "arrivals": 23710, "growth": 12.199507855, "term": "Jan. - Dec."}, {"year": 2025, "arrivals": 30171, "growth": 27.250105441, "term": "Jan. - Dec."}, {"year": 2026, "arrivals": 12128, "growth": null, "term": "Jan. - May."}], "seasonality": [{"month": "Jan.", "2023": 1816, "2024": 2184, "2025": 2674, "2026": 2865}, {"month": "Feb.", "2023": 1564, "2024": 1823, "2025": 2408, "2026": 2278}, {"month": "Mar.", "2023": 1489, "2024": 1704, "2025": 1728, "2026": 1915}, {"month": "Apr.", "2023": 1331, "2024": 2143, "2025": 3381, "2026": 3035}, {"month": "May", "2023": 2024, "2024": 2000, "2025": 2201, "2026": 2035}, {"month": "Jun.", "2023": 1459, "2024": 1665, "2025": 2876, "2026": null}, {"month": "Jul.", "2023": 2041, "2024": 2350, "2025": 3226, "2026": null}, {"month": "Aug.", "2023": 2132, "2024": 1976, "2025": 2581, "2026": null}, {"month": "Sep.", "2023": 2019, "2024": 2072, "2025": 2480, "2026": null}, {"month": "Oct.", "2023": 1997, "2024": 2105, "2025": 2395, "2026": null}, {"month": "Nov.", "2023": 1612, "2024": 2009, "2025": 2215, "2026": null}, {"month": "Dec.", "2023": 1648, "2024": 1679, "2025": 2006, "2026": null}], "purpose_by_year": [{"year": 1992, "Tourism": 1873, "Others": 1122, "Transit": 1160, "Business": 2556}, {"year": 1993, "Tourism": 1374, "Others": 1060, "Transit": 712, "Business": 2349}, {"year": 1994, "Tourism": 1279, "Others": 905, "Transit": 388, "Business": 2301}, {"year": 1995, "Tourism": 1169, "Others": 1097, "Transit": 299, "Business": 2115}, {"year": 1996, "Tourism": 1184, "Others": 1219, "Transit": 290, "Business": 2558}, {"year": 1997, "Tourism": 1433, "Others": 1221, "Transit": 156, "Business": 3321}, {"year": 1998, "Tourism": 1547, "Others": 1319, "Transit": 139, "Business": 3303}, {"year": 1999, "Tourism": 1505, "Others": 1451, "Transit": 179, "Business": 3211}, {"year": 2000, "Tourism": 1647, "Others": 1489, "Transit": 293, "Business": 3022}, {"year": 2001, "Tourism": 1399, "Others": 1520, "Transit": 271, "Business": 2922}, {"year": 2002, "Tourism": 1205, "Others": 1633, "Transit": 183, "Business": 2578}, {"year": 2003, "Tourism": 1101, "Others": 1557, "Transit": 174, "Business": 2549}, {"year": 2004, "Tourism": 1043, "Others": 1741, "Transit": 166, "Business": 2944}, {"year": 2005, "Tourism": 1492, "Others": 1913, "Transit": 91, "Business": 3055}, {"year": 2006, "Tourism": 1427, "Others": 2200, "Transit": 64, "Business": 3354}, {"year": 2007, "Tourism": 1705, "Others": 2472, "Business": 3453}, {"year": 2008, "Tourism": 1615, "Others": 2607, "Business": 3106}, {"year": 2009, "Tourism": 1601, "Others": 2799, "Business": 2935}, {"year": 2010, "Tourism": 1691, "Others": 2966, "Business": 3105}, {"year": 2011, "Tourism": 1516, "Others": 3550, "Business": 3054}, {"year": 2012, "Tourism": 2137, "Others": 3583, "Business": 3476}, {"year": 2013, "Tourism": 2122, "Others": 3744, "Business": 3145}, {"year": 2014, "Tourism": 2348, "Others": 3998, "Business": 2805}, {"year": 2015, "Tourism": 2801, "Others": 4619, "Business": 3105}, {"year": 2016, "Tourism": 3154, "Others": 4923, "Business": 3911}, {"year": 2017, "Tourism": 3896, "Others": 5489, "Business": 4344}, {"year": 2018, "Tourism": 5230, "Others": 6000, "Business": 4572}, {"year": 2019, "Tourism": 6652, "Others": 6533, "Business": 4023}, {"year": 2020, "Tourism": 1014, "Others": 3792, "Business": 1339}, {"year": 2021, "Tourism": 76, "Others": 3201, "Business": 1007}, {"year": 2022, "Tourism": 1113, "Others": 7646, "Business": 2664}, {"year": 2023, "Tourism": 7294, "Others": 9135, "Business": 4703}, {"year": 2024, "Tourism": 6722, "Others": 11628, "Business": 5360}, {"year": 2025, "Tourism": 8348, "Others": 15407, "Business": 6416}, {"year": 2026, "Tourism": 2633, "Others": 7077, "Business": 2418}], "gender_trend": [{"year": 2013, "Male": 11824, "Female": 2435}, {"year": 2014, "Male": 12154, "Female": 2563}, {"year": 2015, "Male": 13457, "Female": 3059}, {"year": 2016, "Male": 14726, "Female": 3423}, {"year": 2017, "Male": 16258, "Female": 3927}, {"year": 2018, "Male": 18048, "Female": 4632}, {"year": 2019, "Male": 18729, "Female": 5124}, {"year": 2020, "Male": 7496, "Female": 2053}, {"year": 2021, "Male": 5782, "Female": 1403}, {"year": 2022, "Male": 13004, "Female": 3868}, {"year": 2023, "Male": 21657, "Female": 5622}, {"year": 2024, "Male": 24049, "Female": 6448}], "age_snapshot": [{"age": "0 - 4", "male": 633.0, "female": 605.0}, {"age": "5 - 9", "male": 583.0, "female": 526.0}, {"age": "10 - 14", "male": 588.0, "female": 397.0}, {"age": "15 - 19", "male": 786.0, "female": 433.0}, {"age": "20 - 24", "male": 2056.0, "female": 555.0}, {"age": "25 - 29", "male": 3498.0, "female": 828.0}, {"age": "30 - 34", "male": 3500.0, "female": 787.0}, {"age": "35 - 39", "male": 3188.0, "female": 632.0}, {"age": "40 - 44", "male": 2569.0, "female": 559.0}, {"age": "45 - 49", "male": 2087.0, "female": 403.0}, {"age": "50 - 54", "male": 1700.0, "female": 262.0}, {"age": "55 - 59", "male": 1504.0, "female": 210.0}, {"age": "60 - 64", "male": 819.0, "female": 105.0}, {"age": "65 - 69", "male": 302.0, "female": 54.0}, {"age": "70 - ", "male": 118.0, "female": 46.0}], "ports_2024": [{"port": "Narita", "type": "Airport", "entries": 16383}, {"port": "Haneda", "type": "Airport", "entries": 6391}, {"port": "Kansai", "type": "Airport", "entries": 5920}, {"port": "Chubu", "type": "Airport", "entries": 901}, {"port": "Fukuoka", "type": "Airport", "entries": 448}, {"port": "Shinchitose", "type": "Airport", "entries": 165}, {"port": "Naha", "type": "Airport", "entries": 32}, {"port": "Hiroshima", "type": "Airport", "entries": 18}, {"port": "Shizuoka", "type": "Airport", "entries": 12}, {"port": "Komatsu", "type": "Airport", "entries": 11}], "ports_total_2024": 30333, "avg_stay": [{"year": 2012, "days": 26.0199353199353}, {"year": 2013, "days": 22.425471242146}, {"year": 2014, "days": 19.435737459446}, {"year": 2015, "days": 16.9885664789952}, {"year": 2016, "days": 14.8496195363652}, {"year": 2017, "days": 13.5255738715144}, {"year": 2018, "days": 14.4136908683621}, {"year": 2019, "days": 14.0112554638174}, {"year": 2020, "days": 19.0243986254296}, {"year": 2021, "days": 43.183908045977}, {"year": 2022, "days": 19.974983713355}, {"year": 2023, "days": 13.3684018567639}, {"year": 2024, "days": 12.443153481187199}], "kpi": {"2025_total": 30171, "2025_growth": 27.250105441, "2026_ytd": 12128, "2026_ytd_term": "Jan. - May.", "2026_ytd_growth": -2.1, "gender_2024": {"male": 24049, "female": 6448, "male_pct": 78.9}, "avg_stay_2024": 12.443153481187199, "top_port": "Narita", "top_port_share": 54.0, "peak_arrivals_year": 2025, "covid_low_year": 2021, "covid_low_value": 4284, "pak_share_2025": 0.0707}, "pak_share_of_japan_inbound": [{"year": 1992, "share_pct": 0.1874}, {"year": 1993, "share_pct": 0.1611}, {"year": 1994, "share_pct": 0.1405}, {"year": 1995, "share_pct": 0.1399}, {"year": 1996, "share_pct": 0.1368}, {"year": 1997, "share_pct": 0.1453}, {"year": 1998, "share_pct": 0.1536}, {"year": 1999, "share_pct": 0.143}, {"year": 2000, "share_pct": 0.1356}, {"year": 2001, "share_pct": 0.1281}, {"year": 2002, "share_pct": 0.1069}, {"year": 2003, "share_pct": 0.1032}, {"year": 2004, "share_pct": 0.096}, {"year": 2005, "share_pct": 0.0974}, {"year": 2006, "share_pct": 0.0961}, {"year": 2007, "share_pct": 0.0914}, {"year": 2008, "share_pct": 0.0878}, {"year": 2009, "share_pct": 0.108}, {"year": 2010, "share_pct": 0.0901}, {"year": 2011, "share_pct": 0.1306}, {"year": 2012, "share_pct": 0.11}, {"year": 2013, "share_pct": 0.0869}, {"year": 2014, "share_pct": 0.0682}, {"year": 2015, "share_pct": 0.0533}, {"year": 2016, "share_pct": 0.0499}, {"year": 2017, "share_pct": 0.0479}, {"year": 2018, "share_pct": 0.0507}, {"year": 2019, "share_pct": 0.054}, {"year": 2020, "share_pct": 0.1493}, {"year": 2021, "share_pct": 1.7424}, {"year": 2022, "share_pct": 0.2981}, {"year": 2023, "share_pct": 0.0843}, {"year": 2024, "share_pct": 0.0643}, {"year": 2025, "share_pct": 0.0707}, {"year": 2026, "share_pct": 0.0676}], "purpose_by_month_2022": [{"month": "Jan.", "Tourism": 5, "Others": 375, "Business": 129}, {"month": "Feb.", "Tourism": 1, "Others": 623, "Business": 173}, {"month": "Mar.", "Tourism": 3, "Others": 680, "Business": 172}, {"month": "Apr.", "Tourism": 8, "Others": 665, "Business": 104}, {"month": "May", "Tourism": 7, "Others": 878, "Business": 209}, {"month": "Jun.", "Tourism": 36, "Others": 751, "Business": 180}, {"month": "Jul.", "Tourism": 75, "Others": 575, "Business": 204}, {"month": "Aug.", "Tourism": 95, "Others": 721, "Business": 291}, {"month": "Sep.", "Tourism": 101, "Others": 703, "Business": 238}, {"month": "Oct.", "Tourism": 110, "Others": 551, "Business": 321}, {"month": "Nov.", "Tourism": 246, "Others": 628, "Business": 402}, {"month": "Dec.", "Tourism": 426, "Others": 496, "Business": 241}]}</script>
+<script>
+(function () {
+  "use strict";
+
+  const DATA = JSON.parse(document.getElementById("data-payload").textContent);
+  const NS = "http://www.w3.org/2000/svg";
+  const tooltip = document.getElementById("tooltip");
+
+  const COLOR = {
+    amber: "#f2a93b",
+    amberDim: "#7a5b28",
+    teal: "#49b8ac",
+    tealDim: "#2a5854",
+    rose: "#e2685a",
+    roseDim: "#6e3a34",
+    ink: "#eceef2",
+    muted: "#8b93a5",
+    line: "#2b3242",
+    lineSoft: "#232a37",
+    panel: "#181d26",
+  };
+
+  function fmt(n) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return Math.round(n).toLocaleString("en-US");
+  }
+  function fmt1(n) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    return n.toFixed(1);
+  }
+  function pct(n, digits) {
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    const d = digits === undefined ? 1 : digits;
+    const s = n >= 0 ? "+" : "";
+    return s + n.toFixed(d) + "%";
+  }
+
+  function svgEl(tag, attrs) {
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  function showTip(x, y, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+    tooltip.style.opacity = "1";
+  }
+  function hideTip() {
+    tooltip.style.opacity = "0";
+  }
+
+  // Unified hover (desktop) + tap (touch) binding so every data point is reachable
+  // without a mouse. Only one element can be "pinned" open at a time; tapping
+  // anywhere else (or another point) closes the previous one first.
+  // touchend is handled explicitly (with preventDefault) rather than relying on
+  // the browser's touch->click synthesis, which is inconsistent across engines.
+  let pinnedDeactivate = null;
+  function bindInteractive(el, activate, deactivate) {
+    el.style.cursor = "pointer";
+    el.addEventListener("mouseenter", activate);
+    el.addEventListener("mouseleave", () => {
+      if (pinnedDeactivate !== deactivate) deactivate();
+    });
+    const trigger = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (pinnedDeactivate && pinnedDeactivate !== deactivate) pinnedDeactivate();
+      activate();
+      pinnedDeactivate = deactivate;
+    };
+    el.addEventListener("click", trigger);
+    el.addEventListener("touchend", trigger, { passive: false });
+  }
+  document.addEventListener("click", () => {
+    if (pinnedDeactivate) { pinnedDeactivate(); pinnedDeactivate = null; }
+    hideTip();
+  });
+  document.addEventListener("touchend", () => {
+    if (pinnedDeactivate) { pinnedDeactivate(); pinnedDeactivate = null; }
+    hideTip();
+  });
+
+  function containerWidth(el) {
+    return el.getBoundingClientRect().width || 600;
+  }
+
+  // ---------------------------------------------------------------
+  // KPI STRIP
+  // ---------------------------------------------------------------
+  function renderKPIs() {
+    const k = DATA.kpi;
+    const strip = document.getElementById("kpiStrip");
+    const items = [
+      {
+        label: "2025 Total Arrivals",
+        value: fmt(k["2025_total"]),
+        delta: pct(k["2025_growth"]),
+        cls: k["2025_growth"] >= 0 ? "up" : "down",
+        note: "vs. 2024",
+      },
+      {
+        label: "2026 Year to Date",
+        value: fmt(k["2026_ytd"]),
+        delta: pct(k["2026_ytd_growth"]),
+        cls: k["2026_ytd_growth"] > 0.5 ? "up" : k["2026_ytd_growth"] < -0.5 ? "down" : "flat",
+        note: k["2026_ytd_term"].replace("Jan. - ", "Jan\u2013") + " vs same period '25",
+      },
+      {
+        label: "Avg. Length of Stay",
+        value: fmt1(k["avg_stay_2024"]) + "d",
+        delta: "2024",
+        cls: "flat",
+        note: "down from 43d in 2021",
+      },
+      {
+        label: "Gender Split, 2024",
+        value: k["gender_2024"]["male_pct"] + "% M",
+        delta: fmt(k["gender_2024"]["male"]) + " / " + fmt(k["gender_2024"]["female"]),
+        cls: "flat",
+        note: "male / female entries",
+      },
+      {
+        label: "Top Gateway",
+        value: k["top_port"],
+        delta: k["top_port_share"] + "% share",
+        cls: "flat",
+        note: "of all 2024 entries",
+      },
+      {
+        label: "Share of Japan Inbound",
+        value: fmt1(k["pak_share_2025"]) + "%",
+        delta: "2025",
+        cls: "flat",
+        note: "Pakistan vs. all countries",
+      },
+    ];
+
+    items.forEach((it) => {
+      const div = document.createElement("div");
+      div.className = "kpi";
+      div.innerHTML =
+        '<div class="kpi-label">' + it.label + "</div>" +
+        '<div class="kpi-value">' + it.value + "</div>" +
+        '<div class="kpi-delta ' + it.cls + '">' + it.delta + "</div>" +
+        '<div class="kpi-note">' + it.note + "</div>";
+      strip.appendChild(div);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // 1. TREND CHART (line, toggle arrivals / growth)
+  // ---------------------------------------------------------------
+  let trendMode = "arrivals";
+
+  function renderTrend() {
+    const host = document.getElementById("trendChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 300;
+    const M = { top: 20, right: 20, bottom: 30, left: 54 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.annual;
+    const xs = rows.map((r) => r.year);
+    const key = trendMode === "arrivals" ? "arrivals" : "growth";
+    const vals = rows.map((r) => r[key]).filter((v) => v !== null && v !== undefined);
+
+    let vMin = Math.min(...vals);
+    let vMax = Math.max(...vals);
+    if (trendMode === "growth") {
+      const ext = Math.max(Math.abs(vMin), Math.abs(vMax));
+      vMin = -ext * 1.08;
+      vMax = ext * 1.08;
+    } else {
+      vMin = 0;
+      vMax = vMax * 1.12;
+    }
+
+    const xMin = xs[0], xMax = xs[xs.length - 1];
+    const xScale = (v) => M.left + ((v - xMin) / (xMax - xMin)) * iw;
+    const yScale = (v) => M.top + ih - ((v - vMin) / (vMax - vMin)) * ih;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    // COVID shaded band 2020-2021
+    const x1 = xScale(2019.9), x2 = xScale(2021.6);
+    svg.appendChild(svgEl("rect", { x: x1, y: M.top, width: x2 - x1, height: ih, fill: COLOR.roseDim, opacity: 0.28 }));
+    const covidLabel = svgEl("text", { x: (x1 + x2) / 2, y: M.top + 14, "text-anchor": "middle", "font-size": 10.5, fill: COLOR.rose, "letter-spacing": "0.04em" });
+    covidLabel.textContent = "COVID-19";
+    svg.appendChild(covidLabel);
+
+    // gridlines + y-axis labels
+    const gridCount = 5;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = vMin + ((vMax - vMin) * i) / gridCount;
+      const y = yScale(v);
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 10, y: y + 4, "text-anchor": "end", "font-size": 11 });
+      t.textContent = trendMode === "arrivals" ? Math.round(v / 1000) + "k" : Math.round(v) + "%";
+      svg.appendChild(t);
+    }
+    // zero line for growth
+    if (trendMode === "growth") {
+      const y0 = yScale(0);
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y0, y2: y0, class: "axis-line" }));
+    }
+
+    // x-axis labels (every 5 years)
+    rows.forEach((r) => {
+      if (r.year % 5 === 0) {
+        const x = xScale(r.year);
+        const t = svgEl("text", { x: x, y: H - 8, "text-anchor": "middle", "font-size": 11 });
+        t.textContent = r.year;
+        svg.appendChild(t);
+      }
+    });
+
+    if (trendMode === "arrivals") {
+      // area fill
+      let path = "M " + xScale(xs[0]) + " " + yScale(0);
+      rows.forEach((r) => { path += " L " + xScale(r.year) + " " + yScale(r.arrivals); });
+      path += " L " + xScale(xs[xs.length - 1]) + " " + yScale(0) + " Z";
+      svg.appendChild(svgEl("path", { d: path, fill: COLOR.amber, opacity: 0.12 }));
+
+      let line = "";
+      rows.forEach((r, i) => { line += (i === 0 ? "M " : " L ") + xScale(r.year) + " " + yScale(r.arrivals); });
+      svg.appendChild(svgEl("path", { d: line, fill: "none", stroke: COLOR.amber, "stroke-width": 2 }));
+    } else {
+      let line = "";
+      let started = false;
+      rows.forEach((r) => {
+        if (r.growth === null || r.growth === undefined) { started = false; return; }
+        line += (!started ? "M " : " L ") + xScale(r.year) + " " + yScale(r.growth);
+        started = true;
+      });
+      svg.appendChild(svgEl("path", { d: line, fill: "none", stroke: COLOR.teal, "stroke-width": 2 }));
+    }
+
+    // hover dots + capture
+    rows.forEach((r) => {
+      const v = r[key];
+      if (v === null || v === undefined) return;
+      const cx = xScale(r.year), cy = yScale(v);
+      const dot = svgEl("circle", { cx, cy, r: 3, fill: trendMode === "arrivals" ? COLOR.amber : COLOR.teal, opacity: 0 });
+      svg.appendChild(dot);
+      const hit = svgEl("rect", { x: cx - 8, y: M.top, width: 16, height: ih, fill: "transparent" });
+      const activate = () => {
+        dot.setAttribute("opacity", 1);
+        const rect = host.getBoundingClientRect();
+        const label = trendMode === "arrivals" ? fmt(r.arrivals) + " visitors" : pct(r.growth);
+        showTip(rect.left + cx + host.scrollLeft, rect.top + cy + window.scrollY - 8,
+          '<div class="t-label">' + r.year + " &middot; " + r.term + '</div>' + label);
+      };
+      const deactivate = () => { dot.setAttribute("opacity", 0); hideTip(); };
+      bindInteractive(hit, activate, deactivate);
+      svg.appendChild(hit);
+    });
+
+    host.appendChild(svg);
+
+    const cal = document.getElementById("trendCallout");
+    cal.innerHTML = trendMode === "arrivals"
+      ? 'Arrivals cratered <span class="rose">-64%</span> in 2020 and bottomed at <b>4,284</b> in 2021, then rebounded past pre-pandemic levels &mdash; 2025 closed at <b>30,171</b>, the highest year on record. 2026 is tracking roughly flat through May.'
+      : 'Post-pandemic growth was explosive &mdash; <span class="teal">+167%</span> in 2022 and <span class="teal">+85%</span> in 2023 &mdash; before settling to a steadier <b>+12&ndash;27%</b> pace in 2024&ndash;25.';
+  }
+
+  document.getElementById("trendToggle").addEventListener("click", (e) => {
+    const btn = e.target.closest(".toggle-btn");
+    if (!btn) return;
+    document.querySelectorAll("#trendToggle .toggle-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    trendMode = btn.dataset.mode;
+    renderTrend();
+  });
+
+  // ---------------------------------------------------------------
+  // 2. SEASONALITY (grouped bars by month, series = years)
+  // ---------------------------------------------------------------
+  function renderSeason() {
+    const host = document.getElementById("seasonChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 280;
+    const M = { top: 16, right: 10, bottom: 26, left: 44 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.seasonality;
+    const years = ["2023", "2024", "2025", "2026"];
+    const colors = { "2023": "#3d4658", "2024": "#5a6478", "2025": COLOR.teal, "2026": COLOR.amber };
+
+    let vMax = 0;
+    rows.forEach((r) => years.forEach((y) => { if (r[y] !== null && r[y] !== undefined) vMax = Math.max(vMax, r[y]); }));
+    vMax *= 1.12;
+
+    const groupW = iw / rows.length;
+    const barW = (groupW * 0.72) / years.length;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = M.top + ih - (v / vMax) * ih;
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 8, y: y + 4, "text-anchor": "end", "font-size": 10.5 });
+      t.textContent = Math.round(v / 1000 * 10) / 10 + "k";
+      svg.appendChild(t);
+    }
+
+    rows.forEach((r, gi) => {
+      const gx = M.left + gi * groupW + groupW * 0.14;
+      years.forEach((y, yi) => {
+        const v = r[y];
+        const bx = gx + yi * barW;
+        const bh = v ? (v / vMax) * ih : 0;
+        const by = M.top + ih - bh;
+        const rect = svgEl("rect", { x: bx, y: by, width: barW * 0.86, height: bh, fill: colors[y] });
+        svg.appendChild(rect);
+        if (v) {
+          // Hit target spans the full slot width and full chart height, not just the
+          // (often very thin/short) visible bar -- narrow bars are still easy to tap.
+          const hit = svgEl("rect", { x: bx, y: M.top, width: barW, height: ih, fill: "transparent" });
+          bindInteractive(hit, () => {
+            const box = host.getBoundingClientRect();
+            showTip(box.left + bx + barW / 2, box.top + by + window.scrollY - 8,
+              '<div class="t-label">' + r.month.replace(".", "") + " " + y + '</div>' + fmt(v));
+          }, hideTip);
+          svg.appendChild(hit);
+        }
+      });
+      const t = svgEl("text", { x: gx + (barW * years.length) / 2, y: H - 8, "text-anchor": "middle", "font-size": 10.5 });
+      t.textContent = r.month.replace(".", "");
+      svg.appendChild(t);
+    });
+
+    host.appendChild(svg);
+
+    const legend = document.getElementById("seasonLegend");
+    legend.innerHTML = "";
+    years.forEach((y) => {
+      const note = y === "2026" ? " (YTD)" : "";
+      legend.innerHTML += '<span class="legend-item"><span class="legend-swatch" style="background:' + colors[y] + '"></span>' + y + note + "</span>";
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // 3. PURPOSE OF VISIT (stacked bars over years)
+  // ---------------------------------------------------------------
+  function renderPurpose() {
+    const host = document.getElementById("purposeChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 280;
+    const M = { top: 16, right: 10, bottom: 26, left: 44 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.purpose_by_year;
+    const cats = ["Tourism", "Business", "Others", "Transit"];
+    const colors = { Tourism: COLOR.amber, Business: COLOR.teal, Others: "#5a6478", Transit: COLOR.rose };
+
+    let vMax = 0;
+    rows.forEach((r) => {
+      const total = cats.reduce((s, c) => s + (r[c] || 0), 0);
+      vMax = Math.max(vMax, total);
+    });
+    vMax *= 1.1;
+
+    const xMin = rows[0].year, xMax = rows[rows.length - 1].year;
+    const barW = Math.max(2.4, (iw / rows.length) * 0.82);
+    const xScale = (yr) => M.left + ((yr - xMin) / (xMax - xMin)) * iw;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = M.top + ih - (v / vMax) * ih;
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 8, y: y + 4, "text-anchor": "end", "font-size": 10.5 });
+      t.textContent = Math.round(v / 1000) + "k";
+      svg.appendChild(t);
+    }
+    [1995, 2005, 2015, 2025].forEach((yr) => {
+      const t = svgEl("text", { x: xScale(yr), y: H - 8, "text-anchor": "middle", "font-size": 10.5 });
+      t.textContent = yr;
+      svg.appendChild(t);
+    });
+
+    rows.forEach((r) => {
+      let acc = 0;
+      const bx = xScale(r.year) - barW / 2;
+      cats.forEach((c) => {
+        const v = r[c] || 0;
+        if (v <= 0) return;
+        const y0 = M.top + ih - (acc / vMax) * ih;
+        const bh = (v / vMax) * ih;
+        acc += v;
+        const rect = svgEl("rect", { x: bx, y: y0 - bh, width: barW, height: bh, fill: colors[c] });
+        svg.appendChild(rect);
+        bindInteractive(rect, () => {
+          const box = host.getBoundingClientRect();
+          showTip(box.left + xScale(r.year), box.top + (y0 - bh) + window.scrollY - 8,
+            '<div class="t-label">' + r.year + " &middot; " + c + '</div>' + fmt(v));
+        }, hideTip);
+      });
+    });
+
+    host.appendChild(svg);
+
+    const legend = document.getElementById("purposeLegend");
+    legend.innerHTML = cats.map((c) =>
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + colors[c] + '"></span>' + c + "</span>"
+    ).join("");
+  }
+
+  // ---------------------------------------------------------------
+  // 3b. PURPOSE BY MONTH (2022 snapshot, stacked bars)
+  // ---------------------------------------------------------------
+  function renderPurposeMonth() {
+    const host = document.getElementById("purposeMonthChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 260;
+    const M = { top: 16, right: 16, bottom: 26, left: 44 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.purpose_by_month_2022;
+    const cats = ["Tourism", "Business", "Others"];
+    const colors = { Tourism: COLOR.amber, Business: COLOR.teal, Others: "#5a6478" };
+
+    let vMax = 0;
+    rows.forEach((r) => { vMax = Math.max(vMax, cats.reduce((s, c) => s + (r[c] || 0), 0)); });
+    vMax *= 1.12;
+
+    const groupW = iw / rows.length;
+    const barW = groupW * 0.56;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = M.top + ih - (v / vMax) * ih;
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 8, y: y + 4, "text-anchor": "end", "font-size": 10.5 });
+      t.textContent = Math.round(v);
+      svg.appendChild(t);
+    }
+
+    rows.forEach((r, gi) => {
+      const bx = M.left + gi * groupW + (groupW - barW) / 2;
+      let acc = 0;
+      cats.forEach((c) => {
+        const v = r[c] || 0;
+        if (v <= 0) return;
+        const y0 = M.top + ih - (acc / vMax) * ih;
+        const bh = (v / vMax) * ih;
+        acc += v;
+        const rect = svgEl("rect", { x: bx, y: y0 - bh, width: barW, height: bh, fill: colors[c] });
+        svg.appendChild(rect);
+        bindInteractive(rect, () => {
+          const box = host.getBoundingClientRect();
+          showTip(box.left + bx + barW / 2, box.top + (y0 - bh) + window.scrollY - 8,
+            '<div class="t-label">' + r.month.replace(".", "") + " 2022 &middot; " + c + '</div>' + fmt(v));
+        }, hideTip);
+      });
+      const t = svgEl("text", { x: bx + barW / 2, y: H - 8, "text-anchor": "middle", "font-size": 10.5 });
+      t.textContent = r.month.replace(".", "");
+      svg.appendChild(t);
+    });
+
+    host.appendChild(svg);
+
+    const legend = document.getElementById("purposeMonthLegend");
+    legend.innerHTML = cats.map((c) =>
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + colors[c] + '"></span>' + c + "</span>"
+    ).join("");
+  }
+
+  // ---------------------------------------------------------------
+  // 4. AGE / GENDER PYRAMID
+  // ---------------------------------------------------------------
+  function renderPyramid() {
+    const host = document.getElementById("pyramidChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const rows = DATA.age_snapshot;
+    const rowH = 22;
+    const H = rows.length * rowH + 30;
+    const M = { top: 10, bottom: 20, mid: 34 };
+    const half = (W - M.mid) / 2 - 8;
+    const vMax = Math.max(...rows.map((r) => Math.max(r.male, r.female))) * 1.08;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+    const cx = W / 2;
+
+    rows.forEach((r, i) => {
+      const y = M.top + i * rowH;
+      const mW = (r.male / vMax) * half;
+      const fW = (r.female / vMax) * half;
+
+      const mRect = svgEl("rect", { x: cx - M.mid / 2 - mW, y: y + 3, width: mW, height: rowH - 7, fill: COLOR.teal });
+      const fRect = svgEl("rect", { x: cx + M.mid / 2, y: y + 3, width: fW, height: rowH - 7, fill: COLOR.amber });
+      svg.appendChild(mRect);
+      svg.appendChild(fRect);
+
+      [{ el: mRect, val: r.male, label: "Male" }, { el: fRect, val: r.female, label: "Female" }].forEach((o) => {
+        bindInteractive(o.el, () => {
+          const box = host.getBoundingClientRect();
+          const bx = parseFloat(o.el.getAttribute("x")) + parseFloat(o.el.getAttribute("width")) / 2;
+          showTip(box.left + bx, box.top + y + window.scrollY, '<div class="t-label">' + r.age + " &middot; " + o.label + '</div>' + fmt(o.val));
+        }, hideTip);
+      });
+
+      const label = svgEl("text", { x: cx, y: y + rowH - 8, "text-anchor": "middle", "font-size": 10.5 });
+      label.textContent = r.age;
+      svg.appendChild(label);
+    });
+
+    host.appendChild(svg);
+
+    const legend = document.getElementById("pyramidLegend");
+    legend.innerHTML =
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + COLOR.teal + '"></span>Male</span>' +
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + COLOR.amber + '"></span>Female</span>';
+  }
+
+  // ---------------------------------------------------------------
+  // 5. GENDER TREND (dual line)
+  // ---------------------------------------------------------------
+  function renderGenderTrend() {
+    const host = document.getElementById("genderChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 280;
+    const M = { top: 16, right: 14, bottom: 26, left: 48 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.gender_trend;
+    const vMax = Math.max(...rows.map((r) => Math.max(r.Male || 0, r.Female || 0))) * 1.12;
+    const xMin = rows[0].year, xMax = rows[rows.length - 1].year;
+    const xScale = (yr) => M.left + ((yr - xMin) / (xMax - xMin)) * iw;
+    const yScale = (v) => M.top + ih - (v / vMax) * ih;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = yScale(v);
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 8, y: y + 4, "text-anchor": "end", "font-size": 10.5 });
+      t.textContent = Math.round(v / 1000) + "k";
+      svg.appendChild(t);
+    }
+    rows.forEach((r) => {
+      if (r.year % 2 === 1) {
+        const t = svgEl("text", { x: xScale(r.year), y: H - 8, "text-anchor": "middle", "font-size": 10.5 });
+        t.textContent = r.year;
+        svg.appendChild(t);
+      }
+    });
+
+    [{ key: "Male", color: COLOR.teal }, { key: "Female", color: COLOR.amber }].forEach((series) => {
+      let line = "";
+      rows.forEach((r, i) => { line += (i === 0 ? "M " : " L ") + xScale(r.year) + " " + yScale(r[series.key]); });
+      svg.appendChild(svgEl("path", { d: line, fill: "none", stroke: series.color, "stroke-width": 2 }));
+      rows.forEach((r) => {
+        const cx = xScale(r.year), cy = yScale(r[series.key]);
+        const hit = svgEl("circle", { cx, cy, r: 7, fill: "transparent" });
+        bindInteractive(hit, () => {
+          const box = host.getBoundingClientRect();
+          showTip(box.left + cx, box.top + cy + window.scrollY - 8, '<div class="t-label">' + r.year + " &middot; " + series.key + '</div>' + fmt(r[series.key]));
+        }, hideTip);
+        svg.appendChild(hit);
+      });
+    });
+
+    host.appendChild(svg);
+
+    const legend = document.getElementById("genderLegend");
+    legend.innerHTML =
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + COLOR.teal + '"></span>Male</span>' +
+      '<span class="legend-item"><span class="legend-swatch" style="background:' + COLOR.amber + '"></span>Female</span>';
+  }
+
+  // ---------------------------------------------------------------
+  // 6. PORTS (horizontal bars)
+  // ---------------------------------------------------------------
+  function renderPorts() {
+    const host = document.getElementById("portsChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const rows = DATA.ports_2024;
+    const rowH = 30;
+    const M = { top: 6, right: 60, bottom: 10, left: 104 };
+    const H = rows.length * rowH + M.top + M.bottom;
+    const iw = W - M.left - M.right;
+    const vMax = rows[0].entries * 1.05;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    rows.forEach((r, i) => {
+      const y = M.top + i * rowH;
+      const bw = (r.entries / vMax) * iw;
+      const label = svgEl("text", { x: M.left - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "font-size": 12, fill: COLOR.ink });
+      label.textContent = r.port;
+      svg.appendChild(label);
+
+      const color = r.type === "Seaport" ? COLOR.teal : COLOR.amber;
+      const rect = svgEl("rect", { x: M.left, y: y + 5, width: Math.max(bw, 2), height: rowH - 12, fill: color, opacity: i === 0 ? 1 : 0.82 });
+      svg.appendChild(rect);
+      bindInteractive(rect, () => {
+        const box = host.getBoundingClientRect();
+        showTip(box.left + M.left + bw, box.top + y + window.scrollY, '<div class="t-label">' + r.port + " &middot; " + r.type + '</div>' + fmt(r.entries));
+      }, hideTip);
+
+      const val = svgEl("text", { x: M.left + bw + 8, y: y + rowH / 2 + 4, "font-size": 11.5, fill: COLOR.muted, "font-family": "var(--font-mono)" });
+      val.textContent = fmt(r.entries);
+      svg.appendChild(val);
+    });
+
+    host.appendChild(svg);
+  }
+
+  // ---------------------------------------------------------------
+  // 7. AVG LENGTH OF STAY (line with covid spike)
+  // ---------------------------------------------------------------
+  function renderStays() {
+    const host = document.getElementById("staysChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 280;
+    const M = { top: 20, right: 14, bottom: 26, left: 40 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.avg_stay;
+    const vMax = Math.max(...rows.map((r) => r.days)) * 1.1;
+    const xMin = rows[0].year, xMax = rows[rows.length - 1].year;
+    const xScale = (yr) => M.left + ((yr - xMin) / (xMax - xMin)) * iw;
+    const yScale = (v) => M.top + ih - (v / vMax) * ih;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = yScale(v);
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 8, y: y + 4, "text-anchor": "end", "font-size": 10.5 });
+      t.textContent = Math.round(v) + "d";
+      svg.appendChild(t);
+    }
+    rows.forEach((r) => {
+      const t = svgEl("text", { x: xScale(r.year), y: H - 8, "text-anchor": "middle", "font-size": 10.5 });
+      t.textContent = r.year;
+      svg.appendChild(t);
+    });
+
+    let line = "";
+    rows.forEach((r, i) => { line += (i === 0 ? "M " : " L ") + xScale(r.year) + " " + yScale(r.days); });
+    svg.appendChild(svgEl("path", { d: line, fill: "none", stroke: COLOR.rose, "stroke-width": 2 }));
+
+    rows.forEach((r) => {
+      const cx = xScale(r.year), cy = yScale(r.days);
+      const dot = svgEl("circle", { cx, cy, r: r.year === 2021 ? 4 : 2.5, fill: COLOR.rose });
+      svg.appendChild(dot);
+      const hit = svgEl("circle", { cx, cy, r: 9, fill: "transparent" });
+      bindInteractive(hit, () => {
+        const box = host.getBoundingClientRect();
+        showTip(box.left + cx, box.top + cy + window.scrollY - 8, '<div class="t-label">' + r.year + '</div>' + fmt1(r.days) + " days");
+      }, hideTip);
+      svg.appendChild(hit);
+    });
+
+    host.appendChild(svg);
+  }
+
+  // ---------------------------------------------------------------
+  // 8. PAKISTAN SHARE OF JAPAN'S TOTAL INBOUND
+  // ---------------------------------------------------------------
+  function renderShare() {
+    const host = document.getElementById("shareChart");
+    host.innerHTML = "";
+    const W = containerWidth(host);
+    const H = 260;
+    const M = { top: 20, right: 20, bottom: 30, left: 54 };
+    const iw = W - M.left - M.right;
+    const ih = H - M.top - M.bottom;
+
+    const rows = DATA.pak_share_of_japan_inbound;
+    const vMax = Math.max(...rows.map((r) => r.share_pct)) * 1.1;
+    const xMin = rows[0].year, xMax = rows[rows.length - 1].year;
+    const xScale = (yr) => M.left + ((yr - xMin) / (xMax - xMin)) * iw;
+    const yScale = (v) => M.top + ih - (v / vMax) * ih;
+
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H });
+
+    // COVID band, same years as the main trend chart -- this is where the spike below comes from
+    const cx1 = xScale(2019.9), cx2 = xScale(2021.6);
+    svg.appendChild(svgEl("rect", { x: cx1, y: M.top, width: cx2 - cx1, height: ih, fill: COLOR.roseDim, opacity: 0.28 }));
+    const covidLabel2 = svgEl("text", { x: (cx1 + cx2) / 2, y: M.top + 14, "text-anchor": "middle", "font-size": 10.5, fill: COLOR.rose, "letter-spacing": "0.04em" });
+    covidLabel2.textContent = "COVID-19";
+    svg.appendChild(covidLabel2);
+
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const v = (vMax * i) / gridCount;
+      const y = yScale(v);
+      svg.appendChild(svgEl("line", { x1: M.left, x2: W - M.right, y1: y, y2: y, class: "tick-line" }));
+      const t = svgEl("text", { x: M.left - 10, y: y + 4, "text-anchor": "end", "font-size": 11 });
+      t.textContent = v.toFixed(2) + "%";
+      svg.appendChild(t);
+    }
+    rows.forEach((r) => {
+      if (r.year % 5 === 0) {
+        const t = svgEl("text", { x: xScale(r.year), y: H - 8, "text-anchor": "middle", "font-size": 11 });
+        t.textContent = r.year;
+        svg.appendChild(t);
+      }
+    });
+
+    let line = "";
+    rows.forEach((r, i) => { line += (i === 0 ? "M " : " L ") + xScale(r.year) + " " + yScale(r.share_pct); });
+    svg.appendChild(svgEl("path", { d: line, fill: "none", stroke: COLOR.teal, "stroke-width": 2 }));
+
+    rows.forEach((r) => {
+      const cx = xScale(r.year), cy = yScale(r.share_pct);
+      const dot = svgEl("circle", { cx, cy, r: 2.5, fill: COLOR.teal, opacity: 0 });
+      svg.appendChild(dot);
+      const hit = svgEl("rect", { x: cx - 8, y: M.top, width: 16, height: ih, fill: "transparent" });
+      const activate = () => {
+        dot.setAttribute("opacity", 1);
+        const box = host.getBoundingClientRect();
+        showTip(box.left + cx, box.top + cy + window.scrollY - 8, '<div class="t-label">' + r.year + '</div>' + r.share_pct.toFixed(3) + "% of Japan's inbound");
+      };
+      const deactivate = () => { dot.setAttribute("opacity", 0); hideTip(); };
+      bindInteractive(hit, activate, deactivate);
+      svg.appendChild(hit);
+    });
+
+    host.appendChild(svg);
+
+    const cal = document.getElementById("shareCallout");
+    const k = DATA.kpi;
+    cal.innerHTML = 'This ratio spiked to <b>1.74%</b> in 2021 &mdash; not because Pakistan\u2019s market grew, but because Japan\u2019s <i>total</i> inbound arrivals collapsed to just 246,000 that year under border restrictions, while Pakistan\u2019s much smaller, less tourism-driven traveler base (residents, workers, students) held up comparatively better. Once Japan reopened, the ratio normalized: it ran <b>0.05&ndash;0.15%</b> pre-pandemic, briefly touched <b>0.30%</b> in the first reopening year (2022), and has since settled near <b>' + fmt1(k["pak_share_2025"]) + '%</b> in 2025 &mdash; meaning Japan\u2019s overall inbound boom has been growing faster than the Pakistan market specifically, even as Pakistan\u2019s own arrival counts hit records.';
+  }
+
+  // ---------------------------------------------------------------
+  function renderAll() {
+    renderTrend();
+    renderSeason();
+    renderPurpose();
+    renderPurposeMonth();
+    renderPyramid();
+    renderGenderTrend();
+    renderPorts();
+    renderStays();
+    renderShare();
+  }
+
+  renderKPIs();
+  renderAll();
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderAll, 150);
+  });
+})();
+
+</script>
+</body>
+</html>
