@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T23:21:58.012576Z",
+  "generated_at": "2026-09-12T15:12:47.473149Z",
   "nodes": {
     "tojinbo": {
       "label": "Tojinbo",
@@ -7,463 +7,465 @@
       "data_source": "camera",
       "summary": {
         "past_30_day": {
-          "current_total": 318306,
-          "previous_year_total": 241360,
-          "diff": 76946,
-          "yoy_pct": 31.88
+          "current_total": 561202,
+          "previous_year_total": 0,
+          "diff": 561202,
+          "yoy_pct": null
         },
         "this_week_pacing": {
-          "rate": 1.4456,
+          "rate": 1.3195,
           "badge": "HOT",
           "label": "Superb"
+        },
+        "model_accuracy": {
+          "walk_forward_mae": 2568.5,
+          "mean_actual": 10398.3,
+          "mae_pct_of_mean": 24.7
         }
       },
       "weather_strip": [
         {
-          "date": "2026-09-07",
-          "weather": "雨　時々　くもり",
-          "wind": "南の風　海上　では　北東の風　やや強く",
-          "precipitation_pct": 60,
-          "rain_risk": true
+          "date": "2026-09-12",
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "wind": "北の風　後　南の風",
+          "precipitation_pct": 20,
+          "rain_risk": false
         },
         {
-          "date": "2026-09-08",
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "wind": "南の風　後　北の風　海上　では　後　北東の風　やや強く",
-          "precipitation_pct": 70,
-          "rain_risk": true
+          "date": "2026-09-13",
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "wind": "南の風　海上　では　後　南の風　やや強く",
+          "precipitation_pct": 30,
+          "rain_risk": false
+        },
+        {
+          "date": "2026-09-14",
+          "weather": "くもり　時々　雨",
+          "wind": "南の風　後　北の風",
+          "precipitation_pct": null,
+          "rain_risk": false
         }
       ],
       "demand_forecast": [
         {
-          "date": "2026-02-22",
-          "actual": 20054.0,
-          "forecast": 10342.8
+          "date": "2026-06-25",
+          "actual": 6093.0,
+          "forecast": 6581.0
         },
         {
-          "date": "2026-02-23",
-          "actual": 14827.0,
-          "forecast": 9071.2
+          "date": "2026-06-26",
+          "actual": 6221.0,
+          "forecast": 7055.3
         },
         {
-          "date": "2026-02-24",
-          "actual": 7148.0,
-          "forecast": 5237.8
+          "date": "2026-06-27",
+          "actual": 13434.0,
+          "forecast": 13209.0
         },
         {
-          "date": "2026-02-25",
-          "actual": 6614.0,
-          "forecast": 5178.8
+          "date": "2026-06-28",
+          "actual": 17202.0,
+          "forecast": 15544.1
         },
         {
-          "date": "2026-02-26",
-          "actual": 6908.0,
-          "forecast": 5439.9
+          "date": "2026-06-29",
+          "actual": 7799.0,
+          "forecast": 8473.2
         },
         {
-          "date": "2026-02-27",
-          "actual": 8084.0,
-          "forecast": 6400.8
+          "date": "2026-06-30",
+          "actual": 4895.0,
+          "forecast": 7142.8
         },
         {
-          "date": "2026-02-28",
-          "actual": 7042.0,
-          "forecast": 7179.9
+          "date": "2026-07-01",
+          "actual": 4209.0,
+          "forecast": 6644.1
         },
         {
-          "date": "2026-03-01",
-          "actual": 14631.0,
-          "forecast": 8481.7
+          "date": "2026-07-02",
+          "actual": 4480.0,
+          "forecast": 6868.9
         },
         {
-          "date": "2026-03-02",
-          "actual": 7189.0,
-          "forecast": 7744.2
+          "date": "2026-07-03",
+          "actual": 7985.0,
+          "forecast": 6845.7
         },
         {
-          "date": "2026-03-03",
-          "actual": 3083.0,
-          "forecast": 5680.2
+          "date": "2026-07-04",
+          "actual": 15867.0,
+          "forecast": 15076.7
         },
         {
-          "date": "2026-03-04",
-          "actual": 4996.0,
-          "forecast": 5541.7
+          "date": "2026-07-05",
+          "actual": 12643.0,
+          "forecast": 16356.1
         },
         {
-          "date": "2026-03-05",
-          "actual": 7672.0,
-          "forecast": 6125.3
+          "date": "2026-07-06",
+          "actual": 6504.0,
+          "forecast": 7642.8
         },
         {
-          "date": "2026-03-06",
-          "actual": 9149.0,
-          "forecast": 5577.6
+          "date": "2026-07-07",
+          "actual": 5088.0,
+          "forecast": 8795.0
         },
         {
-          "date": "2026-03-07",
-          "actual": 11297.0,
-          "forecast": 8790.1
+          "date": "2026-07-08",
+          "actual": 5910.0,
+          "forecast": 6247.1
         },
         {
-          "date": "2026-03-08",
-          "actual": 14378.0,
-          "forecast": 9612.2
+          "date": "2026-07-09",
+          "actual": 6881.0,
+          "forecast": 8842.3
         },
         {
-          "date": "2026-03-09",
-          "actual": 9596.0,
-          "forecast": 5566.0
+          "date": "2026-07-10",
+          "actual": 8703.0,
+          "forecast": 9109.7
         },
         {
-          "date": "2026-03-10",
-          "actual": 7245.0,
-          "forecast": 5389.7
+          "date": "2026-07-11",
+          "actual": 15800.0,
+          "forecast": 16978.2
         },
         {
-          "date": "2026-03-11",
-          "actual": 10299.0,
-          "forecast": 5375.4
+          "date": "2026-07-12",
+          "actual": 16496.0,
+          "forecast": 18084.9
         },
         {
-          "date": "2026-03-12",
-          "actual": 9301.0,
-          "forecast": 5396.8
+          "date": "2026-07-13",
+          "actual": 7222.0,
+          "forecast": 13326.7
         },
         {
-          "date": "2026-03-13",
-          "actual": 7684.0,
-          "forecast": 5577.6
+          "date": "2026-07-14",
+          "actual": 5602.0,
+          "forecast": 8900.6
         },
         {
-          "date": "2026-03-14",
-          "actual": 15977.0,
-          "forecast": 9624.2
+          "date": "2026-07-15",
+          "actual": 5502.0,
+          "forecast": 8779.9
         },
         {
-          "date": "2026-03-15",
-          "actual": 16324.0,
-          "forecast": 9612.2
+          "date": "2026-07-16",
+          "actual": 5850.0,
+          "forecast": 9101.5
         },
         {
-          "date": "2026-03-16",
-          "actual": 12097.0,
-          "forecast": 5566.0
+          "date": "2026-07-17",
+          "actual": 8237.0,
+          "forecast": 9351.9
         },
         {
-          "date": "2026-03-17",
-          "actual": 11964.0,
-          "forecast": 5389.7
+          "date": "2026-07-18",
+          "actual": 17434.0,
+          "forecast": 16888.8
         },
         {
-          "date": "2026-03-18",
-          "actual": 6785.0,
-          "forecast": 5375.4
+          "date": "2026-07-19",
+          "actual": 27517.0,
+          "forecast": 18999.5
         },
         {
-          "date": "2026-03-19",
-          "actual": 9713.0,
-          "forecast": 5396.8
+          "date": "2026-07-20",
+          "actual": 20614.0,
+          "forecast": 18381.8
         },
         {
-          "date": "2026-03-20",
-          "actual": 18719.0,
-          "forecast": 9736.1
+          "date": "2026-07-21",
+          "actual": 8169.0,
+          "forecast": 13551.2
         },
         {
-          "date": "2026-03-21",
-          "actual": 20579.0,
-          "forecast": 9624.2
+          "date": "2026-07-22",
+          "actual": 6445.0,
+          "forecast": 8948.3
         },
         {
-          "date": "2026-03-22",
-          "actual": 16335.0,
-          "forecast": 9612.2
+          "date": "2026-07-23",
+          "actual": 8421.0,
+          "forecast": 6719.4
         },
         {
-          "date": "2026-03-23",
-          "actual": 10010.0,
-          "forecast": 5566.0
+          "date": "2026-07-24",
+          "actual": 8698.0,
+          "forecast": 8367.9
         },
         {
-          "date": "2026-03-24",
-          "actual": 11725.0,
-          "forecast": 5389.7
+          "date": "2026-07-25",
+          "actual": 15406.0,
+          "forecast": 15905.7
         },
         {
-          "date": "2026-03-25",
-          "actual": 9184.0,
-          "forecast": 5375.4
+          "date": "2026-07-26",
+          "actual": 18079.0,
+          "forecast": 16149.9
         },
         {
-          "date": "2026-03-26",
-          "actual": 13060.0,
-          "forecast": 5396.8
+          "date": "2026-07-27",
+          "actual": 13298.0,
+          "forecast": 12571.6
         },
         {
-          "date": "2026-03-27",
-          "actual": 15995.0,
-          "forecast": 5577.6
+          "date": "2026-07-28",
+          "actual": 5376.0,
+          "forecast": 8528.4
         },
         {
-          "date": "2026-03-28",
-          "actual": 17686.0,
-          "forecast": 9624.2
+          "date": "2026-07-29",
+          "actual": 12810.0,
+          "forecast": 6886.2
         },
         {
-          "date": "2026-03-29",
-          "actual": 16860.0,
-          "forecast": 9612.2
+          "date": "2026-07-30",
+          "actual": 11353.0,
+          "forecast": 7976.3
         },
         {
-          "date": "2026-03-30",
-          "actual": 16058.0,
-          "forecast": 5566.0
+          "date": "2026-07-31",
+          "actual": 12986.0,
+          "forecast": 9770.8
         },
         {
-          "date": "2026-03-31",
-          "actual": 7958.0,
-          "forecast": 5389.7
+          "date": "2026-08-01",
+          "actual": 17304.0,
+          "forecast": 16509.2
         },
         {
-          "date": "2026-04-01",
-          "actual": 7008.0,
-          "forecast": 5375.7
+          "date": "2026-08-02",
+          "actual": 18512.0,
+          "forecast": 17472.2
         },
         {
-          "date": "2026-04-02",
-          "actual": 11309.0,
-          "forecast": 5390.0
+          "date": "2026-08-03",
+          "actual": 12419.0,
+          "forecast": 13322.8
         },
         {
-          "date": "2026-04-03",
-          "actual": 12550.0,
-          "forecast": 5565.6
+          "date": "2026-08-04",
+          "actual": 14935.0,
+          "forecast": 10760.3
         },
         {
-          "date": "2026-04-04",
-          "actual": 8713.0,
-          "forecast": 10844.0
+          "date": "2026-08-05",
+          "actual": 15458.0,
+          "forecast": 11382.4
         },
         {
-          "date": "2026-04-05",
-          "actual": 17188.0,
-          "forecast": 10850.1
+          "date": "2026-08-06",
+          "actual": 14169.0,
+          "forecast": 11754.2
         },
         {
-          "date": "2026-04-06",
-          "actual": 10040.0,
-          "forecast": 5558.9
+          "date": "2026-08-07",
+          "actual": 15695.0,
+          "forecast": 12294.8
         },
         {
-          "date": "2026-04-07",
-          "actual": 4095.0,
-          "forecast": 5390.0
+          "date": "2026-08-08",
+          "actual": 22623.0,
+          "forecast": 17495.8
         },
         {
-          "date": "2026-04-08",
-          "actual": 6606.0,
-          "forecast": 5375.7
+          "date": "2026-08-09",
+          "actual": 25721.0,
+          "forecast": 18536.6
         },
         {
-          "date": "2026-04-09",
-          "actual": 6305.0,
-          "forecast": 5390.0
+          "date": "2026-08-10",
+          "actual": 29369.0,
+          "forecast": 14185.4
         },
         {
-          "date": "2026-04-10",
-          "actual": 2874.0,
-          "forecast": 5565.6
+          "date": "2026-08-11",
+          "actual": 30900.0,
+          "forecast": 19413.7
         },
         {
-          "date": "2026-04-11",
-          "actual": 15692.0,
-          "forecast": 10844.0
+          "date": "2026-08-12",
+          "actual": 26879.0,
+          "forecast": 14850.8
         },
         {
-          "date": "2026-04-12",
-          "actual": 17876.0,
-          "forecast": 10850.1
+          "date": "2026-08-13",
+          "actual": 26392.0,
+          "forecast": 14781.9
         },
         {
-          "date": "2026-04-13",
-          "actual": 8218.0,
-          "forecast": 5558.9
+          "date": "2026-08-14",
+          "actual": 30046.0,
+          "forecast": 15061.0
         },
         {
-          "date": "2026-04-14",
-          "actual": 6455.0,
-          "forecast": 5390.0
+          "date": "2026-08-15",
+          "actual": 26068.0,
+          "forecast": 11904.1
         },
         {
-          "date": "2026-04-15",
-          "actual": 4052.0,
-          "forecast": 5375.7
+          "date": "2026-08-16",
+          "actual": 22064.0,
+          "forecast": 16431.7
         },
         {
-          "date": "2026-04-16",
-          "actual": 8953.0,
-          "forecast": 5390.0
+          "date": "2026-08-17",
+          "actual": 18874.0,
+          "forecast": 13881.0
         },
         {
-          "date": "2026-04-17",
-          "actual": 8772.0,
-          "forecast": 5565.6
+          "date": "2026-08-18",
+          "actual": 17930.0,
+          "forecast": 13256.3
         },
         {
-          "date": "2026-04-18",
-          "actual": 15615.0,
-          "forecast": 10844.0
+          "date": "2026-08-19",
+          "actual": 15234.0,
+          "forecast": 11330.8
         },
         {
-          "date": "2026-04-19",
-          "actual": 15427.0,
-          "forecast": 10850.1
+          "date": "2026-08-20",
+          "actual": 14711.0,
+          "forecast": 11257.6
         },
         {
-          "date": "2026-04-20",
-          "actual": 8512.0,
-          "forecast": 5558.9
+          "date": "2026-08-21",
+          "actual": 14848.0,
+          "forecast": 12084.1
         },
         {
-          "date": "2026-04-21",
-          "actual": 6473.0,
-          "forecast": 5390.0
+          "date": "2026-08-22",
+          "actual": 19977.0,
+          "forecast": 17977.8
         },
         {
-          "date": "2026-04-22",
-          "actual": 7047.0,
-          "forecast": 5375.7
+          "date": "2026-08-23",
+          "actual": 21766.0,
+          "forecast": 13688.7
         }
       ],
       "weekly_pacing": [
         {
-          "date": "2026-04-09",
-          "actual": 6305.0,
-          "forecast": 5390.0,
-          "rate": 1.1698,
+          "date": "2026-08-10",
+          "actual": 29369.0,
+          "forecast": 14185.4,
+          "rate": 2.0704,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-11",
+          "actual": 30900.0,
+          "forecast": 19413.7,
+          "rate": 1.5917,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-12",
+          "actual": 26879.0,
+          "forecast": 14850.8,
+          "rate": 1.8099,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-13",
+          "actual": 26392.0,
+          "forecast": 14781.9,
+          "rate": 1.7854,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-14",
+          "actual": 30046.0,
+          "forecast": 15061.0,
+          "rate": 1.995,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-15",
+          "actual": 26068.0,
+          "forecast": 11904.1,
+          "rate": 2.1898,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-16",
+          "actual": 22064.0,
+          "forecast": 16431.7,
+          "rate": 1.3428,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-17",
+          "actual": 18874.0,
+          "forecast": 13881.0,
+          "rate": 1.3597,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-18",
+          "actual": 17930.0,
+          "forecast": 13256.3,
+          "rate": 1.3526,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-19",
+          "actual": 15234.0,
+          "forecast": 11330.8,
+          "rate": 1.3445,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-20",
+          "actual": 14711.0,
+          "forecast": 11257.6,
+          "rate": 1.3068,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-21",
+          "actual": 14848.0,
+          "forecast": 12084.1,
+          "rate": 1.2287,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-22",
+          "actual": 19977.0,
+          "forecast": 17977.8,
+          "rate": 1.1112,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-10",
-          "actual": 2874.0,
-          "forecast": 5565.6,
-          "rate": 0.5164,
-          "badge": "CRIT",
-          "label": "Critical"
-        },
-        {
-          "date": "2026-04-11",
-          "actual": 15692.0,
-          "forecast": 10844.0,
-          "rate": 1.4471,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-12",
-          "actual": 17876.0,
-          "forecast": 10850.1,
-          "rate": 1.6475,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-13",
-          "actual": 8218.0,
-          "forecast": 5558.9,
-          "rate": 1.4783,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-14",
-          "actual": 6455.0,
-          "forecast": 5390.0,
-          "rate": 1.1976,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-15",
-          "actual": 4052.0,
-          "forecast": 5375.7,
-          "rate": 0.7538,
-          "badge": "WARN",
-          "label": "Warning"
-        },
-        {
-          "date": "2026-04-16",
-          "actual": 8953.0,
-          "forecast": 5390.0,
-          "rate": 1.661,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-17",
-          "actual": 8772.0,
-          "forecast": 5565.6,
-          "rate": 1.5761,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-18",
-          "actual": 15615.0,
-          "forecast": 10844.0,
-          "rate": 1.44,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-19",
-          "actual": 15427.0,
-          "forecast": 10850.1,
-          "rate": 1.4218,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-20",
-          "actual": 8512.0,
-          "forecast": 5558.9,
-          "rate": 1.5312,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-21",
-          "actual": 6473.0,
-          "forecast": 5390.0,
-          "rate": 1.2009,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-22",
-          "actual": 7047.0,
-          "forecast": 5375.7,
-          "rate": 1.3109,
+          "date": "2026-08-23",
+          "actual": 21766.0,
+          "forecast": 13688.7,
+          "rate": 1.5901,
           "badge": "HOT",
           "label": "Superb"
         }
       ],
       "nudges": [
         {
-          "type": "weather",
-          "date": "2026-09-07",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
-          "type": "weather",
-          "date": "2026-09-08",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
           "type": "demand",
-          "date": "2026-04-22",
+          "date": "2026-08-23",
           "message": "Very high demand — raise rates and enable on-site upsell offers."
         }
       ],
@@ -484,23 +486,36 @@
         "dow_mean_count",
         "weekend_x_severity",
         "weekend_x_intent",
-        "month"
+        "month",
+        "count_lag1",
+        "count_lag7",
+        "count_roll7",
+        "search_views",
+        "search_views_roll7"
       ],
       "estimated_outlook": [
         {
-          "date": "2026-09-07",
-          "estimated_demand": 5863.1,
-          "weather": "雨　時々　くもり",
-          "precipitation_pct": 60,
-          "rain_risk": true,
+          "date": "2026-09-12",
+          "estimated_demand": 16665.6,
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "precipitation_pct": 20,
+          "rain_risk": false,
           "is_estimated": true
         },
         {
-          "date": "2026-09-08",
-          "estimated_demand": 5569.5,
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "precipitation_pct": 70,
-          "rain_risk": true,
+          "date": "2026-09-13",
+          "estimated_demand": 16401.1,
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "precipitation_pct": 30,
+          "rain_risk": false,
+          "is_estimated": true
+        },
+        {
+          "date": "2026-09-14",
+          "estimated_demand": 13723.2,
+          "weather": "くもり　時々　雨",
+          "precipitation_pct": null,
+          "rain_risk": false,
           "is_estimated": true
         }
       ]
@@ -511,461 +526,462 @@
       "data_source": "camera",
       "summary": {
         "past_30_day": {
-          "current_total": 274305,
-          "previous_year_total": 246408,
-          "diff": 27897,
-          "yoy_pct": 11.32
+          "current_total": 453890,
+          "previous_year_total": 0,
+          "diff": 453890,
+          "yoy_pct": null
         },
         "this_week_pacing": {
-          "rate": 1.0253,
+          "rate": 1.0336,
           "badge": "OK",
           "label": "Strong"
+        },
+        "model_accuracy": {
+          "walk_forward_mae": 1349.5,
+          "mean_actual": 9094.0,
+          "mae_pct_of_mean": 14.8
         }
       },
       "weather_strip": [
         {
-          "date": "2026-09-07",
-          "weather": "雨　時々　くもり",
-          "wind": "南の風　海上　では　北東の風　やや強く",
-          "precipitation_pct": 60,
-          "rain_risk": true
+          "date": "2026-09-12",
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "wind": "北の風　後　南の風",
+          "precipitation_pct": 20,
+          "rain_risk": false
         },
         {
-          "date": "2026-09-08",
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "wind": "南の風　後　北の風　海上　では　後　北東の風　やや強く",
-          "precipitation_pct": 70,
-          "rain_risk": true
+          "date": "2026-09-13",
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "wind": "南の風　海上　では　後　南の風　やや強く",
+          "precipitation_pct": 30,
+          "rain_risk": false
+        },
+        {
+          "date": "2026-09-14",
+          "weather": "くもり　時々　雨",
+          "wind": "南の風　後　北の風",
+          "precipitation_pct": null,
+          "rain_risk": false
         }
       ],
       "demand_forecast": [
         {
-          "date": "2026-02-22",
-          "actual": 12396.0,
-          "forecast": 9456.1
+          "date": "2026-06-25",
+          "actual": 8897.0,
+          "forecast": 8147.7
         },
         {
-          "date": "2026-02-23",
-          "actual": 12047.0,
-          "forecast": 11473.0
+          "date": "2026-06-26",
+          "actual": 9718.0,
+          "forecast": 9294.0
         },
         {
-          "date": "2026-02-24",
-          "actual": 8694.0,
-          "forecast": 6630.2
+          "date": "2026-06-27",
+          "actual": 12751.0,
+          "forecast": 11755.4
         },
         {
-          "date": "2026-02-25",
-          "actual": 7668.0,
-          "forecast": 6582.8
+          "date": "2026-06-28",
+          "actual": 12636.0,
+          "forecast": 12279.7
         },
         {
-          "date": "2026-02-26",
-          "actual": 8193.0,
-          "forecast": 6823.5
+          "date": "2026-06-29",
+          "actual": 8518.0,
+          "forecast": 7788.3
         },
         {
-          "date": "2026-02-27",
-          "actual": 7856.0,
-          "forecast": 8043.8
+          "date": "2026-06-30",
+          "actual": 6789.0,
+          "forecast": 7762.0
         },
         {
-          "date": "2026-02-28",
-          "actual": 9796.0,
-          "forecast": 8979.0
+          "date": "2026-07-01",
+          "actual": 7266.0,
+          "forecast": 7432.8
         },
         {
-          "date": "2026-03-01",
-          "actual": 9962.0,
-          "forecast": 8458.0
+          "date": "2026-07-02",
+          "actual": 6911.0,
+          "forecast": 8040.7
         },
         {
-          "date": "2026-03-02",
-          "actual": 7234.0,
-          "forecast": 5977.3
+          "date": "2026-07-03",
+          "actual": 9200.0,
+          "forecast": 8092.5
         },
         {
-          "date": "2026-03-03",
-          "actual": 7109.0,
-          "forecast": 5440.5
+          "date": "2026-07-04",
+          "actual": 11729.0,
+          "forecast": 11668.9
         },
         {
-          "date": "2026-03-04",
-          "actual": 6627.0,
-          "forecast": 5219.3
+          "date": "2026-07-05",
+          "actual": 12040.0,
+          "forecast": 11955.3
         },
         {
-          "date": "2026-03-05",
-          "actual": 6730.0,
-          "forecast": 5680.0
+          "date": "2026-07-06",
+          "actual": 8205.0,
+          "forecast": 8484.6
         },
         {
-          "date": "2026-03-06",
-          "actual": 7520.0,
-          "forecast": 6182.3
+          "date": "2026-07-07",
+          "actual": 8802.0,
+          "forecast": 8179.6
         },
         {
-          "date": "2026-03-07",
-          "actual": 10174.0,
-          "forecast": 7421.2
+          "date": "2026-07-08",
+          "actual": 8161.0,
+          "forecast": 8290.2
         },
         {
-          "date": "2026-03-08",
-          "actual": 11410.0,
-          "forecast": 9625.9
+          "date": "2026-07-09",
+          "actual": 8306.0,
+          "forecast": 8983.8
         },
         {
-          "date": "2026-03-09",
-          "actual": 7136.0,
-          "forecast": 5921.6
+          "date": "2026-07-10",
+          "actual": 10122.0,
+          "forecast": 10005.4
         },
         {
-          "date": "2026-03-10",
-          "actual": 7825.0,
-          "forecast": 5759.2
+          "date": "2026-07-11",
+          "actual": 14820.0,
+          "forecast": 12704.9
         },
         {
-          "date": "2026-03-11",
-          "actual": 7792.0,
-          "forecast": 5913.7
+          "date": "2026-07-12",
+          "actual": 17386.0,
+          "forecast": 13819.5
         },
         {
-          "date": "2026-03-12",
-          "actual": 7797.0,
-          "forecast": 6218.0
+          "date": "2026-07-13",
+          "actual": 10588.0,
+          "forecast": 11558.3
         },
         {
-          "date": "2026-03-13",
-          "actual": 9893.0,
-          "forecast": 8144.9
+          "date": "2026-07-14",
+          "actual": 9075.0,
+          "forecast": 9913.7
         },
         {
-          "date": "2026-03-14",
-          "actual": 11467.0,
-          "forecast": 10094.1
+          "date": "2026-07-15",
+          "actual": 10330.0,
+          "forecast": 9387.7
         },
         {
-          "date": "2026-03-15",
-          "actual": 11858.0,
-          "forecast": 10893.2
+          "date": "2026-07-16",
+          "actual": 9311.0,
+          "forecast": 9771.0
         },
         {
-          "date": "2026-03-16",
-          "actual": 8289.0,
-          "forecast": 6395.6
+          "date": "2026-07-17",
+          "actual": 10071.0,
+          "forecast": 10552.2
         },
         {
-          "date": "2026-03-17",
-          "actual": 8300.0,
-          "forecast": 6605.0
+          "date": "2026-07-18",
+          "actual": 12411.0,
+          "forecast": 12631.6
         },
         {
-          "date": "2026-03-18",
-          "actual": 8504.0,
-          "forecast": 7236.1
+          "date": "2026-07-19",
+          "actual": 16081.0,
+          "forecast": 13378.4
         },
         {
-          "date": "2026-03-19",
-          "actual": 10030.0,
-          "forecast": 7204.8
+          "date": "2026-07-20",
+          "actual": 15221.0,
+          "forecast": 13944.2
         },
         {
-          "date": "2026-03-20",
-          "actual": 13278.0,
-          "forecast": 10998.1
+          "date": "2026-07-21",
+          "actual": 11474.0,
+          "forecast": 11691.9
         },
         {
-          "date": "2026-03-21",
-          "actual": 13274.0,
-          "forecast": 11347.2
+          "date": "2026-07-22",
+          "actual": 10905.0,
+          "forecast": 10478.7
         },
         {
-          "date": "2026-03-22",
-          "actual": 13340.0,
-          "forecast": 10818.5
+          "date": "2026-07-23",
+          "actual": 11591.0,
+          "forecast": 10400.4
         },
         {
-          "date": "2026-03-23",
-          "actual": 0.0,
-          "forecast": 6896.9
+          "date": "2026-07-24",
+          "actual": 12282.0,
+          "forecast": 10933.2
         },
         {
-          "date": "2026-03-24",
-          "actual": 8811.0,
-          "forecast": 7080.5
+          "date": "2026-07-25",
+          "actual": 14688.0,
+          "forecast": 12744.5
         },
         {
-          "date": "2026-03-25",
-          "actual": 9068.0,
-          "forecast": 7345.9
+          "date": "2026-07-26",
+          "actual": 17364.0,
+          "forecast": 14368.6
         },
         {
-          "date": "2026-03-26",
-          "actual": 9450.0,
-          "forecast": 7343.2
+          "date": "2026-07-27",
+          "actual": 12213.0,
+          "forecast": 12302.2
         },
         {
-          "date": "2026-03-27",
-          "actual": 10568.0,
-          "forecast": 8896.4
+          "date": "2026-07-28",
+          "actual": 11726.0,
+          "forecast": 10735.7
         },
         {
-          "date": "2026-03-28",
-          "actual": 14093.0,
-          "forecast": 10069.0
+          "date": "2026-07-29",
+          "actual": 11676.0,
+          "forecast": 10589.0
         },
         {
-          "date": "2026-03-29",
-          "actual": 18522.0,
-          "forecast": 12078.0
+          "date": "2026-07-30",
+          "actual": 13090.0,
+          "forecast": 7619.6
         },
         {
-          "date": "2026-03-30",
-          "actual": 10934.0,
-          "forecast": 8456.9
+          "date": "2026-07-31",
+          "actual": 19296.0,
+          "forecast": 11674.3
         },
         {
-          "date": "2026-03-31",
-          "actual": 8814.0,
-          "forecast": 7385.5
+          "date": "2026-08-01",
+          "actual": 17468.0,
+          "forecast": 14482.4
         },
         {
-          "date": "2026-04-01",
-          "actual": 8299.0,
-          "forecast": 7012.5
+          "date": "2026-08-02",
+          "actual": 17659.0,
+          "forecast": 14816.4
         },
         {
-          "date": "2026-04-02",
-          "actual": 8549.0,
-          "forecast": 7164.4
+          "date": "2026-08-03",
+          "actual": 12957.0,
+          "forecast": 12553.9
         },
         {
-          "date": "2026-04-03",
-          "actual": 8606.0,
-          "forecast": 8466.4
+          "date": "2026-08-04",
+          "actual": 14806.0,
+          "forecast": 11656.2
         },
         {
-          "date": "2026-04-04",
-          "actual": 11243.0,
-          "forecast": 10723.8
+          "date": "2026-08-05",
+          "actual": 13599.0,
+          "forecast": 12591.5
         },
         {
-          "date": "2026-04-05",
-          "actual": 11682.0,
-          "forecast": 11369.4
+          "date": "2026-08-06",
+          "actual": 13817.0,
+          "forecast": 12531.2
         },
         {
-          "date": "2026-04-06",
-          "actual": 7947.0,
-          "forecast": 6599.1
+          "date": "2026-08-07",
+          "actual": 14968.0,
+          "forecast": 13823.0
         },
         {
-          "date": "2026-04-07",
-          "actual": 7355.0,
-          "forecast": 6440.7
+          "date": "2026-08-08",
+          "actual": 17371.0,
+          "forecast": 15036.0
         },
         {
-          "date": "2026-04-08",
-          "actual": 6760.0,
-          "forecast": 6581.5
+          "date": "2026-08-09",
+          "actual": 19489.0,
+          "forecast": 15012.5
         },
         {
-          "date": "2026-04-09",
-          "actual": 6053.0,
-          "forecast": 6836.7
+          "date": "2026-08-10",
+          "actual": 16327.0,
+          "forecast": 14692.4
         },
         {
-          "date": "2026-04-10",
-          "actual": 7400.0,
-          "forecast": 7813.6
+          "date": "2026-08-11",
+          "actual": 17199.0,
+          "forecast": 15473.2
         },
         {
-          "date": "2026-04-11",
-          "actual": 10251.0,
-          "forecast": 10085.2
+          "date": "2026-08-12",
+          "actual": 18265.0,
+          "forecast": 14899.6
         },
         {
-          "date": "2026-04-12",
-          "actual": 11167.0,
-          "forecast": 10032.0
+          "date": "2026-08-13",
+          "actual": 18268.0,
+          "forecast": 14960.3
         },
         {
-          "date": "2026-04-13",
-          "actual": 7094.0,
-          "forecast": 6816.2
+          "date": "2026-08-14",
+          "actual": 17064.0,
+          "forecast": 15008.3
         },
         {
-          "date": "2026-04-14",
-          "actual": 6169.0,
-          "forecast": 6734.0
+          "date": "2026-08-15",
+          "actual": 17046.0,
+          "forecast": 10357.0
         },
         {
-          "date": "2026-04-15",
-          "actual": 6127.0,
-          "forecast": 6507.1
+          "date": "2026-08-16",
+          "actual": 16361.0,
+          "forecast": 15127.4
         },
         {
-          "date": "2026-04-16",
-          "actual": 8573.0,
-          "forecast": 6802.1
+          "date": "2026-08-17",
+          "actual": 10276.0,
+          "forecast": 12748.4
         },
         {
-          "date": "2026-04-17",
-          "actual": 8586.0,
-          "forecast": 8323.6
+          "date": "2026-08-18",
+          "actual": 12020.0,
+          "forecast": 10734.7
         },
         {
-          "date": "2026-04-18",
-          "actual": 10558.0,
-          "forecast": 11745.2
+          "date": "2026-08-19",
+          "actual": 12674.0,
+          "forecast": 11020.3
         },
         {
-          "date": "2026-04-19",
-          "actual": 10250.0,
-          "forecast": 10586.0
+          "date": "2026-08-20",
+          "actual": 12685.0,
+          "forecast": 11193.1
         },
         {
-          "date": "2026-04-20",
-          "actual": 7177.0,
-          "forecast": 6660.0
+          "date": "2026-08-21",
+          "actual": 14373.0,
+          "forecast": 11320.1
         },
         {
-          "date": "2026-04-21",
-          "actual": 6652.0,
-          "forecast": 6488.0
+          "date": "2026-08-22",
+          "actual": 14710.0,
+          "forecast": 14999.9
         },
         {
-          "date": "2026-04-22",
-          "actual": 7547.0,
-          "forecast": 7274.6
+          "date": "2026-08-23",
+          "actual": 14435.0,
+          "forecast": 16191.0
         }
       ],
       "weekly_pacing": [
         {
-          "date": "2026-04-09",
-          "actual": 6053.0,
-          "forecast": 6836.7,
-          "rate": 0.8854,
+          "date": "2026-08-10",
+          "actual": 16327.0,
+          "forecast": 14692.4,
+          "rate": 1.1113,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-10",
-          "actual": 7400.0,
-          "forecast": 7813.6,
-          "rate": 0.9471,
+          "date": "2026-08-11",
+          "actual": 17199.0,
+          "forecast": 15473.2,
+          "rate": 1.1115,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-11",
-          "actual": 10251.0,
-          "forecast": 10085.2,
-          "rate": 1.0164,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-12",
-          "actual": 11167.0,
-          "forecast": 10032.0,
-          "rate": 1.1131,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-13",
-          "actual": 7094.0,
-          "forecast": 6816.2,
-          "rate": 1.0408,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-14",
-          "actual": 6169.0,
-          "forecast": 6734.0,
-          "rate": 0.9161,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-15",
-          "actual": 6127.0,
-          "forecast": 6507.1,
-          "rate": 0.9416,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-04-16",
-          "actual": 8573.0,
-          "forecast": 6802.1,
-          "rate": 1.2604,
+          "date": "2026-08-12",
+          "actual": 18265.0,
+          "forecast": 14899.6,
+          "rate": 1.2259,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-04-17",
-          "actual": 8586.0,
-          "forecast": 8323.6,
-          "rate": 1.0315,
+          "date": "2026-08-13",
+          "actual": 18268.0,
+          "forecast": 14960.3,
+          "rate": 1.2211,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-14",
+          "actual": 17064.0,
+          "forecast": 15008.3,
+          "rate": 1.137,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-18",
-          "actual": 10558.0,
-          "forecast": 11745.2,
-          "rate": 0.8989,
+          "date": "2026-08-15",
+          "actual": 17046.0,
+          "forecast": 10357.0,
+          "rate": 1.6458,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-16",
+          "actual": 16361.0,
+          "forecast": 15127.4,
+          "rate": 1.0815,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-19",
-          "actual": 10250.0,
-          "forecast": 10586.0,
-          "rate": 0.9683,
+          "date": "2026-08-17",
+          "actual": 10276.0,
+          "forecast": 12748.4,
+          "rate": 0.8061,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-20",
-          "actual": 7177.0,
-          "forecast": 6660.0,
-          "rate": 1.0776,
+          "date": "2026-08-18",
+          "actual": 12020.0,
+          "forecast": 10734.7,
+          "rate": 1.1197,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-21",
-          "actual": 6652.0,
-          "forecast": 6488.0,
-          "rate": 1.0253,
+          "date": "2026-08-19",
+          "actual": 12674.0,
+          "forecast": 11020.3,
+          "rate": 1.1501,
           "badge": "OK",
           "label": "Strong"
         },
         {
-          "date": "2026-04-22",
-          "actual": 7547.0,
-          "forecast": 7274.6,
-          "rate": 1.0374,
+          "date": "2026-08-20",
+          "actual": 12685.0,
+          "forecast": 11193.1,
+          "rate": 1.1333,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-21",
+          "actual": 14373.0,
+          "forecast": 11320.1,
+          "rate": 1.2697,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-22",
+          "actual": 14710.0,
+          "forecast": 14999.9,
+          "rate": 0.9807,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-23",
+          "actual": 14435.0,
+          "forecast": 16191.0,
+          "rate": 0.8915,
           "badge": "OK",
           "label": "Strong"
         }
       ],
-      "nudges": [
-        {
-          "type": "weather",
-          "date": "2026-09-07",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
-          "type": "weather",
-          "date": "2026-09-08",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        }
-      ],
+      "nudges": [],
       "weather_data_is_stale": true,
       "feature_cols": [
         "directions",
@@ -989,23 +1005,36 @@
         "hotel_reserve_roll7",
         "hotel_checkin_lag1",
         "hotel_checkin_lag7",
-        "hotel_checkin_roll7"
+        "hotel_checkin_roll7",
+        "count_lag1",
+        "count_lag7",
+        "count_roll7",
+        "search_views",
+        "search_views_roll7"
       ],
       "estimated_outlook": [
         {
-          "date": "2026-09-07",
-          "estimated_demand": 5387.4,
-          "weather": "雨　時々　くもり",
-          "precipitation_pct": 60,
-          "rain_risk": true,
+          "date": "2026-09-12",
+          "estimated_demand": 13160.8,
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "precipitation_pct": 20,
+          "rain_risk": false,
           "is_estimated": true
         },
         {
-          "date": "2026-09-08",
-          "estimated_demand": 5232.0,
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "precipitation_pct": 70,
-          "rain_risk": true,
+          "date": "2026-09-13",
+          "estimated_demand": 13497.2,
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "precipitation_pct": 30,
+          "rain_risk": false,
+          "is_estimated": true
+        },
+        {
+          "date": "2026-09-14",
+          "estimated_demand": 13211.2,
+          "weather": "くもり　時々　雨",
+          "precipitation_pct": null,
+          "rain_risk": false,
           "is_estimated": true
         }
       ]
@@ -1016,466 +1045,462 @@
       "data_source": "survey_proxy",
       "summary": {
         "past_30_day": {
-          "current_total": 281,
-          "previous_year_total": 359,
-          "diff": -78,
-          "yoy_pct": -21.73
+          "current_total": 288,
+          "previous_year_total": 363,
+          "diff": -75,
+          "yoy_pct": -20.66
         },
         "this_week_pacing": {
-          "rate": 1.256,
-          "badge": "HOT",
-          "label": "Superb"
+          "rate": 0.7738,
+          "badge": "WARN",
+          "label": "Warning"
+        },
+        "model_accuracy": {
+          "walk_forward_mae": 3.8,
+          "mean_actual": 8.9,
+          "mae_pct_of_mean": 42.1
         }
       },
       "weather_strip": [
         {
-          "date": "2026-09-07",
-          "weather": "雨　時々　くもり",
-          "wind": "南の風　海上　では　北東の風　やや強く",
-          "precipitation_pct": 60,
-          "rain_risk": true
+          "date": "2026-09-12",
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "wind": "北の風　後　南の風",
+          "precipitation_pct": 20,
+          "rain_risk": false
         },
         {
-          "date": "2026-09-08",
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "wind": "南の風　後　北の風　海上　では　後　北東の風　やや強く",
-          "precipitation_pct": 70,
-          "rain_risk": true
+          "date": "2026-09-13",
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "wind": "南の風　海上　では　後　南の風　やや強く",
+          "precipitation_pct": 30,
+          "rain_risk": false
+        },
+        {
+          "date": "2026-09-14",
+          "weather": "くもり　時々　雨",
+          "wind": "南の風　後　北の風",
+          "precipitation_pct": null,
+          "rain_risk": false
         }
       ],
       "demand_forecast": [
         {
-          "date": "2026-01-28",
+          "date": "2026-06-24",
           "actual": 1.0,
-          "forecast": 6.0
+          "forecast": 4.9
         },
         {
-          "date": "2026-01-30",
-          "actual": 4.0,
-          "forecast": 9.0
-        },
-        {
-          "date": "2026-01-31",
-          "actual": 3.0,
-          "forecast": 12.8
-        },
-        {
-          "date": "2026-02-01",
-          "actual": 7.0,
-          "forecast": 14.4
-        },
-        {
-          "date": "2026-02-02",
-          "actual": 5.0,
-          "forecast": 3.9
-        },
-        {
-          "date": "2026-02-03",
-          "actual": 2.0,
-          "forecast": 4.1
-        },
-        {
-          "date": "2026-02-04",
-          "actual": 3.0,
-          "forecast": 5.1
-        },
-        {
-          "date": "2026-02-05",
-          "actual": 3.0,
-          "forecast": 5.4
-        },
-        {
-          "date": "2026-02-06",
-          "actual": 3.0,
-          "forecast": 8.4
-        },
-        {
-          "date": "2026-02-07",
-          "actual": 1.0,
-          "forecast": 10.8
-        },
-        {
-          "date": "2026-02-08",
-          "actual": 2.0,
-          "forecast": 18.0
-        },
-        {
-          "date": "2026-02-09",
-          "actual": 5.0,
-          "forecast": 4.8
-        },
-        {
-          "date": "2026-02-10",
-          "actual": 3.0,
-          "forecast": 3.5
-        },
-        {
-          "date": "2026-02-11",
-          "actual": 11.0,
-          "forecast": 15.5
-        },
-        {
-          "date": "2026-02-12",
-          "actual": 1.0,
-          "forecast": 5.2
-        },
-        {
-          "date": "2026-02-13",
-          "actual": 2.0,
-          "forecast": 9.8
-        },
-        {
-          "date": "2026-02-14",
-          "actual": 4.0,
-          "forecast": 14.3
-        },
-        {
-          "date": "2026-02-15",
-          "actual": 12.0,
-          "forecast": 14.6
-        },
-        {
-          "date": "2026-02-16",
-          "actual": 4.0,
-          "forecast": 11.0
-        },
-        {
-          "date": "2026-02-17",
-          "actual": 1.0,
-          "forecast": 6.1
-        },
-        {
-          "date": "2026-02-19",
-          "actual": 3.0,
-          "forecast": 8.3
-        },
-        {
-          "date": "2026-02-20",
-          "actual": 5.0,
-          "forecast": 10.7
-        },
-        {
-          "date": "2026-02-21",
-          "actual": 12.0,
-          "forecast": 15.0
-        },
-        {
-          "date": "2026-02-22",
-          "actual": 21.0,
-          "forecast": 17.3
-        },
-        {
-          "date": "2026-02-23",
-          "actual": 13.0,
-          "forecast": 17.8
-        },
-        {
-          "date": "2026-02-24",
+          "date": "2026-06-25",
           "actual": 6.0,
-          "forecast": 5.3
-        },
-        {
-          "date": "2026-02-25",
-          "actual": 4.0,
-          "forecast": 3.1
-        },
-        {
-          "date": "2026-02-26",
-          "actual": 3.0,
-          "forecast": 2.9
-        },
-        {
-          "date": "2026-02-27",
-          "actual": 3.0,
-          "forecast": 9.4
-        },
-        {
-          "date": "2026-02-28",
-          "actual": 10.0,
-          "forecast": 14.3
-        },
-        {
-          "date": "2026-03-01",
-          "actual": 17.0,
-          "forecast": 12.5
-        },
-        {
-          "date": "2026-03-02",
-          "actual": 7.0,
-          "forecast": 10.9
-        },
-        {
-          "date": "2026-03-03",
-          "actual": 6.0,
-          "forecast": 4.8
-        },
-        {
-          "date": "2026-03-04",
-          "actual": 3.0,
           "forecast": 5.0
         },
         {
-          "date": "2026-03-06",
-          "actual": 3.0,
+          "date": "2026-06-26",
+          "actual": 8.0,
+          "forecast": 7.4
+        },
+        {
+          "date": "2026-06-27",
+          "actual": 18.0,
+          "forecast": 15.4
+        },
+        {
+          "date": "2026-06-28",
+          "actual": 26.0,
+          "forecast": 17.8
+        },
+        {
+          "date": "2026-06-29",
+          "actual": 10.0,
+          "forecast": 8.9
+        },
+        {
+          "date": "2026-06-30",
+          "actual": 5.0,
+          "forecast": 4.7
+        },
+        {
+          "date": "2026-07-01",
+          "actual": 5.0,
+          "forecast": 5.6
+        },
+        {
+          "date": "2026-07-02",
+          "actual": 4.0,
+          "forecast": 6.1
+        },
+        {
+          "date": "2026-07-03",
+          "actual": 6.0,
           "forecast": 7.7
         },
         {
-          "date": "2026-03-07",
-          "actual": 5.0,
-          "forecast": 13.5
-        },
-        {
-          "date": "2026-03-08",
-          "actual": 10.0,
-          "forecast": 13.8
-        },
-        {
-          "date": "2026-03-09",
-          "actual": 8.0,
-          "forecast": 9.8
-        },
-        {
-          "date": "2026-03-10",
-          "actual": 6.0,
-          "forecast": 5.5
-        },
-        {
-          "date": "2026-03-12",
-          "actual": 5.0,
-          "forecast": 5.3
-        },
-        {
-          "date": "2026-03-13",
-          "actual": 4.0,
-          "forecast": 9.4
-        },
-        {
-          "date": "2026-03-14",
-          "actual": 15.0,
-          "forecast": 13.5
-        },
-        {
-          "date": "2026-03-15",
-          "actual": 8.0,
-          "forecast": 13.8
-        },
-        {
-          "date": "2026-03-16",
-          "actual": 4.0,
-          "forecast": 9.8
-        },
-        {
-          "date": "2026-03-17",
-          "actual": 8.0,
-          "forecast": 5.5
-        },
-        {
-          "date": "2026-03-18",
-          "actual": 11.0,
-          "forecast": 4.8
-        },
-        {
-          "date": "2026-03-19",
-          "actual": 5.0,
-          "forecast": 5.3
-        },
-        {
-          "date": "2026-03-20",
-          "actual": 37.0,
-          "forecast": 13.5
-        },
-        {
-          "date": "2026-03-21",
-          "actual": 23.0,
-          "forecast": 13.5
-        },
-        {
-          "date": "2026-03-22",
-          "actual": 23.0,
-          "forecast": 13.8
-        },
-        {
-          "date": "2026-03-23",
-          "actual": 9.0,
-          "forecast": 9.8
-        },
-        {
-          "date": "2026-03-24",
-          "actual": 5.0,
-          "forecast": 5.5
-        },
-        {
-          "date": "2026-03-25",
-          "actual": 5.0,
-          "forecast": 4.8
-        },
-        {
-          "date": "2026-03-26",
-          "actual": 6.0,
-          "forecast": 5.3
-        },
-        {
-          "date": "2026-03-27",
+          "date": "2026-07-04",
           "actual": 14.0,
-          "forecast": 9.4
+          "forecast": 14.6
         },
         {
-          "date": "2026-03-28",
-          "actual": 17.0,
+          "date": "2026-07-05",
+          "actual": 15.0,
+          "forecast": 17.5
+        },
+        {
+          "date": "2026-07-06",
+          "actual": 14.0,
+          "forecast": 7.8
+        },
+        {
+          "date": "2026-07-07",
+          "actual": 5.0,
+          "forecast": 7.4
+        },
+        {
+          "date": "2026-07-08",
+          "actual": 1.0,
+          "forecast": 5.4
+        },
+        {
+          "date": "2026-07-09",
+          "actual": 7.0,
+          "forecast": 6.1
+        },
+        {
+          "date": "2026-07-10",
+          "actual": 20.0,
+          "forecast": 9.7
+        },
+        {
+          "date": "2026-07-11",
+          "actual": 6.0,
+          "forecast": 19.0
+        },
+        {
+          "date": "2026-07-12",
+          "actual": 8.0,
+          "forecast": 15.1
+        },
+        {
+          "date": "2026-07-13",
+          "actual": 8.0,
+          "forecast": 9.5
+        },
+        {
+          "date": "2026-07-15",
+          "actual": 2.0,
+          "forecast": 5.9
+        },
+        {
+          "date": "2026-07-16",
+          "actual": 2.0,
+          "forecast": 8.0
+        },
+        {
+          "date": "2026-07-17",
+          "actual": 8.0,
+          "forecast": 10.4
+        },
+        {
+          "date": "2026-07-18",
+          "actual": 20.0,
+          "forecast": 11.7
+        },
+        {
+          "date": "2026-07-19",
+          "actual": 14.0,
+          "forecast": 12.9
+        },
+        {
+          "date": "2026-07-20",
+          "actual": 18.0,
+          "forecast": 13.6
+        },
+        {
+          "date": "2026-07-21",
+          "actual": 5.0,
+          "forecast": 10.4
+        },
+        {
+          "date": "2026-07-22",
+          "actual": 6.0,
+          "forecast": 6.2
+        },
+        {
+          "date": "2026-07-23",
+          "actual": 4.0,
+          "forecast": 7.2
+        },
+        {
+          "date": "2026-07-24",
+          "actual": 15.0,
+          "forecast": 9.6
+        },
+        {
+          "date": "2026-07-25",
+          "actual": 6.0,
+          "forecast": 16.6
+        },
+        {
+          "date": "2026-07-26",
+          "actual": 8.0,
+          "forecast": 13.6
+        },
+        {
+          "date": "2026-07-27",
+          "actual": 9.0,
+          "forecast": 10.4
+        },
+        {
+          "date": "2026-07-28",
+          "actual": 8.0,
+          "forecast": 9.6
+        },
+        {
+          "date": "2026-07-29",
+          "actual": 5.0,
+          "forecast": 7.4
+        },
+        {
+          "date": "2026-07-30",
+          "actual": 12.0,
+          "forecast": 6.2
+        },
+        {
+          "date": "2026-07-31",
+          "actual": 7.0,
+          "forecast": 11.5
+        },
+        {
+          "date": "2026-08-01",
+          "actual": 14.0,
+          "forecast": 14.2
+        },
+        {
+          "date": "2026-08-02",
+          "actual": 12.0,
+          "forecast": 15.7
+        },
+        {
+          "date": "2026-08-03",
+          "actual": 9.0,
+          "forecast": 10.8
+        },
+        {
+          "date": "2026-08-04",
+          "actual": 2.0,
+          "forecast": 9.6
+        },
+        {
+          "date": "2026-08-05",
+          "actual": 10.0,
+          "forecast": 9.5
+        },
+        {
+          "date": "2026-08-06",
+          "actual": 11.0,
+          "forecast": 10.1
+        },
+        {
+          "date": "2026-08-07",
+          "actual": 10.0,
+          "forecast": 10.9
+        },
+        {
+          "date": "2026-08-08",
+          "actual": 10.0,
+          "forecast": 16.6
+        },
+        {
+          "date": "2026-08-09",
+          "actual": 16.0,
+          "forecast": 13.9
+        },
+        {
+          "date": "2026-08-10",
+          "actual": 18.0,
+          "forecast": 13.1
+        },
+        {
+          "date": "2026-08-11",
+          "actual": 8.0,
+          "forecast": 18.2
+        },
+        {
+          "date": "2026-08-12",
+          "actual": 14.0,
+          "forecast": 11.2
+        },
+        {
+          "date": "2026-08-13",
+          "actual": 5.0,
           "forecast": 13.5
         },
         {
-          "date": "2026-03-29",
-          "actual": 11.0,
-          "forecast": 13.8
+          "date": "2026-08-14",
+          "actual": 12.0,
+          "forecast": 11.8
         },
         {
-          "date": "2026-03-30",
+          "date": "2026-08-15",
+          "actual": 15.0,
+          "forecast": 9.7
+        },
+        {
+          "date": "2026-08-16",
+          "actual": 9.0,
+          "forecast": 14.4
+        },
+        {
+          "date": "2026-08-17",
           "actual": 6.0,
-          "forecast": 9.8
+          "forecast": 11.4
         },
         {
-          "date": "2026-03-31",
-          "actual": 13.0,
-          "forecast": 5.5
+          "date": "2026-08-18",
+          "actual": 12.0,
+          "forecast": 9.4
         },
         {
-          "date": "2026-04-01",
+          "date": "2026-08-19",
+          "actual": 4.0,
+          "forecast": 8.6
+        },
+        {
+          "date": "2026-08-20",
+          "actual": 5.0,
+          "forecast": 9.2
+        },
+        {
+          "date": "2026-08-21",
+          "actual": 7.0,
+          "forecast": 9.5
+        },
+        {
+          "date": "2026-08-22",
           "actual": 11.0,
-          "forecast": 4.7
+          "forecast": 13.6
+        },
+        {
+          "date": "2026-08-23",
+          "actual": 13.0,
+          "forecast": 13.2
         }
       ],
       "weekly_pacing": [
         {
-          "date": "2026-03-19",
-          "actual": 5.0,
-          "forecast": 5.3,
-          "rate": 0.9478,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-03-20",
-          "actual": 37.0,
-          "forecast": 13.5,
-          "rate": 2.7458,
+          "date": "2026-08-10",
+          "actual": 18.0,
+          "forecast": 13.1,
+          "rate": 1.3726,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-03-21",
-          "actual": 23.0,
-          "forecast": 13.5,
-          "rate": 1.7068,
-          "badge": "HOT",
-          "label": "Superb"
+          "date": "2026-08-11",
+          "actual": 8.0,
+          "forecast": 18.2,
+          "rate": 0.4394,
+          "badge": "CRIT",
+          "label": "Critical"
         },
         {
-          "date": "2026-03-22",
-          "actual": 23.0,
-          "forecast": 13.8,
-          "rate": 1.6645,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-03-23",
-          "actual": 9.0,
-          "forecast": 9.8,
-          "rate": 0.9156,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-03-24",
-          "actual": 5.0,
-          "forecast": 5.5,
-          "rate": 0.9016,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-03-25",
-          "actual": 5.0,
-          "forecast": 4.8,
-          "rate": 1.0343,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-03-26",
-          "actual": 6.0,
-          "forecast": 5.3,
-          "rate": 1.1374,
-          "badge": "OK",
-          "label": "Strong"
-        },
-        {
-          "date": "2026-03-27",
+          "date": "2026-08-12",
           "actual": 14.0,
-          "forecast": 9.4,
-          "rate": 1.4867,
+          "forecast": 11.2,
+          "rate": 1.2451,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-03-28",
-          "actual": 17.0,
+          "date": "2026-08-13",
+          "actual": 5.0,
           "forecast": 13.5,
-          "rate": 1.2615,
+          "rate": 0.3709,
+          "badge": "CRIT",
+          "label": "Critical"
+        },
+        {
+          "date": "2026-08-14",
+          "actual": 12.0,
+          "forecast": 11.8,
+          "rate": 1.0198,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-15",
+          "actual": 15.0,
+          "forecast": 9.7,
+          "rate": 1.5446,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-03-29",
-          "actual": 11.0,
-          "forecast": 13.8,
-          "rate": 0.7961,
+          "date": "2026-08-16",
+          "actual": 9.0,
+          "forecast": 14.4,
+          "rate": 0.6256,
           "badge": "WARN",
           "label": "Warning"
         },
         {
-          "date": "2026-03-30",
+          "date": "2026-08-17",
           "actual": 6.0,
-          "forecast": 9.8,
-          "rate": 0.6104,
+          "forecast": 11.4,
+          "rate": 0.5245,
+          "badge": "CRIT",
+          "label": "Critical"
+        },
+        {
+          "date": "2026-08-18",
+          "actual": 12.0,
+          "forecast": 9.4,
+          "rate": 1.2747,
+          "badge": "HOT",
+          "label": "Superb"
+        },
+        {
+          "date": "2026-08-19",
+          "actual": 4.0,
+          "forecast": 8.6,
+          "rate": 0.4628,
+          "badge": "CRIT",
+          "label": "Critical"
+        },
+        {
+          "date": "2026-08-20",
+          "actual": 5.0,
+          "forecast": 9.2,
+          "rate": 0.5453,
+          "badge": "CRIT",
+          "label": "Critical"
+        },
+        {
+          "date": "2026-08-21",
+          "actual": 7.0,
+          "forecast": 9.5,
+          "rate": 0.7362,
           "badge": "WARN",
           "label": "Warning"
         },
         {
-          "date": "2026-03-31",
-          "actual": 13.0,
-          "forecast": 5.5,
-          "rate": 2.3442,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-01",
+          "date": "2026-08-22",
           "actual": 11.0,
-          "forecast": 4.7,
-          "rate": 2.3194,
-          "badge": "HOT",
-          "label": "Superb"
-        }
-      ],
-      "nudges": [
-        {
-          "type": "weather",
-          "date": "2026-09-07",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
+          "forecast": 13.6,
+          "rate": 0.8098,
+          "badge": "OK",
+          "label": "Strong"
         },
         {
-          "type": "weather",
-          "date": "2026-09-08",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
-          "type": "demand",
-          "date": "2026-04-01",
-          "message": "Very high demand — raise rates and enable on-site upsell offers."
+          "date": "2026-08-23",
+          "actual": 13.0,
+          "forecast": 13.2,
+          "rate": 0.9849,
+          "badge": "OK",
+          "label": "Strong"
         }
       ],
+      "nudges": [],
       "weather_data_is_stale": true,
       "feature_cols": [
         "directions",
@@ -1493,23 +1518,36 @@
         "dow_mean_count",
         "weekend_x_severity",
         "weekend_x_intent",
-        "month"
+        "month",
+        "count_lag1",
+        "count_lag7",
+        "count_roll7",
+        "search_views",
+        "search_views_roll7"
       ],
       "estimated_outlook": [
         {
-          "date": "2026-09-07",
-          "estimated_demand": 5.6,
-          "weather": "雨　時々　くもり",
-          "precipitation_pct": 60,
-          "rain_risk": true,
+          "date": "2026-09-12",
+          "estimated_demand": 13.4,
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "precipitation_pct": 20,
+          "rain_risk": false,
           "is_estimated": true
         },
         {
-          "date": "2026-09-08",
-          "estimated_demand": 5.4,
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "precipitation_pct": 70,
-          "rain_risk": true,
+          "date": "2026-09-13",
+          "estimated_demand": 13.6,
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "precipitation_pct": 30,
+          "rain_risk": false,
+          "is_estimated": true
+        },
+        {
+          "date": "2026-09-14",
+          "estimated_demand": 11.2,
+          "weather": "くもり　時々　雨",
+          "precipitation_pct": null,
+          "rain_risk": false,
           "is_estimated": true
         }
       ]
@@ -1520,466 +1558,462 @@
       "data_source": "camera",
       "summary": {
         "past_30_day": {
-          "current_total": 2701,
-          "previous_year_total": 3211,
-          "diff": -510,
-          "yoy_pct": -15.88
+          "current_total": 4826,
+          "previous_year_total": 0,
+          "diff": 4826,
+          "yoy_pct": null
         },
         "this_week_pacing": {
-          "rate": 1.2967,
-          "badge": "HOT",
-          "label": "Superb"
+          "rate": 0.9364,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        "model_accuracy": {
+          "walk_forward_mae": 47.8,
+          "mean_actual": 78.6,
+          "mae_pct_of_mean": 60.8
         }
       },
       "weather_strip": [
         {
-          "date": "2026-09-07",
-          "weather": "雨　時々　くもり",
-          "wind": "南の風　海上　では　北東の風　やや強く",
-          "precipitation_pct": 60,
-          "rain_risk": true
+          "date": "2026-09-12",
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "wind": "北の風　後　南の風",
+          "precipitation_pct": 20,
+          "rain_risk": false
         },
         {
-          "date": "2026-09-08",
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "wind": "南の風　後　北の風　海上　では　後　北東の風　やや強く",
-          "precipitation_pct": 70,
-          "rain_risk": true
+          "date": "2026-09-13",
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "wind": "南の風　海上　では　後　南の風　やや強く",
+          "precipitation_pct": 30,
+          "rain_risk": false
+        },
+        {
+          "date": "2026-09-14",
+          "weather": "くもり　時々　雨",
+          "wind": "南の風　後　北の風",
+          "precipitation_pct": null,
+          "rain_risk": false
         }
       ],
       "demand_forecast": [
         {
-          "date": "2026-02-22",
-          "actual": 188.0,
-          "forecast": 391.9
+          "date": "2026-06-25",
+          "actual": 14.0,
+          "forecast": 41.0
         },
         {
-          "date": "2026-02-23",
-          "actual": 46.0,
-          "forecast": 146.4
-        },
-        {
-          "date": "2026-02-24",
-          "actual": 5.0,
-          "forecast": 21.9
-        },
-        {
-          "date": "2026-02-25",
-          "actual": 2.0,
+          "date": "2026-06-26",
+          "actual": 7.0,
           "forecast": 29.3
         },
         {
-          "date": "2026-02-26",
-          "actual": 9.0,
-          "forecast": 61.4
+          "date": "2026-06-27",
+          "actual": 29.0,
+          "forecast": 55.4
         },
         {
-          "date": "2026-02-27",
-          "actual": 12.0,
-          "forecast": 68.7
+          "date": "2026-06-28",
+          "actual": 443.0,
+          "forecast": 172.3
         },
         {
-          "date": "2026-02-28",
+          "date": "2026-06-29",
+          "actual": 61.0,
+          "forecast": 94.5
+        },
+        {
+          "date": "2026-06-30",
+          "actual": 21.0,
+          "forecast": 45.0
+        },
+        {
+          "date": "2026-07-01",
+          "actual": 16.0,
+          "forecast": 32.6
+        },
+        {
+          "date": "2026-07-02",
           "actual": 4.0,
-          "forecast": 29.4
+          "forecast": 31.9
         },
         {
-          "date": "2026-03-01",
-          "actual": 116.0,
-          "forecast": 66.0
+          "date": "2026-07-03",
+          "actual": 38.0,
+          "forecast": 26.2
         },
         {
-          "date": "2026-03-02",
-          "actual": 6.0,
-          "forecast": 38.5
+          "date": "2026-07-04",
+          "actual": 389.0,
+          "forecast": 158.4
         },
         {
-          "date": "2026-03-03",
-          "actual": 0.0,
-          "forecast": 25.2
+          "date": "2026-07-05",
+          "actual": 263.0,
+          "forecast": 292.2
         },
         {
-          "date": "2026-03-04",
-          "actual": 7.0,
-          "forecast": 30.9
-        },
-        {
-          "date": "2026-03-05",
-          "actual": 18.0,
-          "forecast": 46.8
-        },
-        {
-          "date": "2026-03-06",
-          "actual": 19.0,
-          "forecast": 55.8
-        },
-        {
-          "date": "2026-03-07",
-          "actual": 11.0,
-          "forecast": 53.5
-        },
-        {
-          "date": "2026-03-08",
-          "actual": 31.0,
-          "forecast": 68.6
-        },
-        {
-          "date": "2026-03-09",
-          "actual": 11.0,
-          "forecast": 47.2
-        },
-        {
-          "date": "2026-03-10",
-          "actual": 14.0,
-          "forecast": 47.7
-        },
-        {
-          "date": "2026-03-11",
-          "actual": 24.0,
-          "forecast": 45.8
-        },
-        {
-          "date": "2026-03-12",
-          "actual": 35.0,
-          "forecast": 52.1
-        },
-        {
-          "date": "2026-03-13",
-          "actual": 18.0,
-          "forecast": 52.6
-        },
-        {
-          "date": "2026-03-14",
-          "actual": 62.0,
-          "forecast": 67.0
-        },
-        {
-          "date": "2026-03-15",
-          "actual": 36.0,
-          "forecast": 68.8
-        },
-        {
-          "date": "2026-03-16",
-          "actual": 18.0,
-          "forecast": 47.2
-        },
-        {
-          "date": "2026-03-17",
-          "actual": 54.0,
-          "forecast": 47.7
-        },
-        {
-          "date": "2026-03-18",
-          "actual": 11.0,
-          "forecast": 48.7
-        },
-        {
-          "date": "2026-03-19",
-          "actual": 7.0,
-          "forecast": 55.6
-        },
-        {
-          "date": "2026-03-20",
-          "actual": 170.0,
-          "forecast": 75.6
-        },
-        {
-          "date": "2026-03-21",
-          "actual": 132.0,
-          "forecast": 67.3
-        },
-        {
-          "date": "2026-03-22",
-          "actual": 110.0,
-          "forecast": 68.8
-        },
-        {
-          "date": "2026-03-23",
-          "actual": 6.0,
-          "forecast": 47.2
-        },
-        {
-          "date": "2026-03-24",
-          "actual": 33.0,
-          "forecast": 50.8
-        },
-        {
-          "date": "2026-03-25",
-          "actual": 12.0,
-          "forecast": 49.1
-        },
-        {
-          "date": "2026-03-26",
-          "actual": 22.0,
-          "forecast": 55.6
-        },
-        {
-          "date": "2026-03-27",
-          "actual": 80.0,
-          "forecast": 55.9
-        },
-        {
-          "date": "2026-03-28",
-          "actual": 371.0,
-          "forecast": 67.3
-        },
-        {
-          "date": "2026-03-29",
-          "actual": 284.0,
-          "forecast": 68.9
-        },
-        {
-          "date": "2026-03-30",
-          "actual": 52.0,
-          "forecast": 47.4
-        },
-        {
-          "date": "2026-03-31",
-          "actual": 19.0,
-          "forecast": 50.8
-        },
-        {
-          "date": "2026-04-01",
-          "actual": 3.0,
-          "forecast": 87.0
-        },
-        {
-          "date": "2026-04-02",
-          "actual": 25.0,
-          "forecast": 85.7
-        },
-        {
-          "date": "2026-04-03",
+          "date": "2026-07-06",
           "actual": 27.0,
-          "forecast": 86.1
+          "forecast": 77.7
         },
         {
-          "date": "2026-04-04",
-          "actual": 33.0,
-          "forecast": 82.0
+          "date": "2026-07-07",
+          "actual": 36.0,
+          "forecast": 42.3
         },
         {
-          "date": "2026-04-05",
-          "actual": 292.0,
-          "forecast": 83.5
+          "date": "2026-07-08",
+          "actual": 51.0,
+          "forecast": 40.9
         },
         {
-          "date": "2026-04-06",
-          "actual": 24.0,
-          "forecast": 79.3
+          "date": "2026-07-09",
+          "actual": 46.0,
+          "forecast": 37.1
         },
         {
-          "date": "2026-04-07",
-          "actual": 9.0,
+          "date": "2026-07-10",
+          "actual": 88.0,
+          "forecast": 45.7
+        },
+        {
+          "date": "2026-07-11",
+          "actual": 255.0,
+          "forecast": 244.0
+        },
+        {
+          "date": "2026-07-12",
+          "actual": 263.0,
+          "forecast": 286.4
+        },
+        {
+          "date": "2026-07-13",
+          "actual": 26.0,
+          "forecast": 65.6
+        },
+        {
+          "date": "2026-07-14",
+          "actual": 52.0,
+          "forecast": 35.2
+        },
+        {
+          "date": "2026-07-15",
+          "actual": 27.0,
+          "forecast": 39.1
+        },
+        {
+          "date": "2026-07-16",
+          "actual": 25.0,
+          "forecast": 38.2
+        },
+        {
+          "date": "2026-07-17",
+          "actual": 38.0,
+          "forecast": 44.2
+        },
+        {
+          "date": "2026-07-18",
+          "actual": 188.0,
+          "forecast": 232.7
+        },
+        {
+          "date": "2026-07-19",
+          "actual": 476.0,
+          "forecast": 209.2
+        },
+        {
+          "date": "2026-07-20",
+          "actual": 209.0,
+          "forecast": 301.8
+        },
+        {
+          "date": "2026-07-21",
+          "actual": 82.0,
           "forecast": 81.7
         },
         {
-          "date": "2026-04-08",
-          "actual": 28.0,
-          "forecast": 87.0
+          "date": "2026-07-22",
+          "actual": 16.0,
+          "forecast": 44.3
         },
         {
-          "date": "2026-04-09",
-          "actual": 15.0,
-          "forecast": 85.7
+          "date": "2026-07-23",
+          "actual": 31.0,
+          "forecast": 20.6
         },
         {
-          "date": "2026-04-10",
-          "actual": 4.0,
-          "forecast": 86.1
+          "date": "2026-07-24",
+          "actual": 29.0,
+          "forecast": 32.4
         },
         {
-          "date": "2026-04-11",
-          "actual": 144.0,
-          "forecast": 82.0
+          "date": "2026-07-25",
+          "actual": 400.0,
+          "forecast": 260.3
         },
         {
-          "date": "2026-04-12",
-          "actual": 252.0,
-          "forecast": 83.5
+          "date": "2026-07-26",
+          "actual": 469.0,
+          "forecast": 314.1
         },
         {
-          "date": "2026-04-13",
-          "actual": 191.0,
-          "forecast": 79.3
+          "date": "2026-07-27",
+          "actual": 50.0,
+          "forecast": 69.5
         },
         {
-          "date": "2026-04-14",
-          "actual": 20.0,
-          "forecast": 81.7
+          "date": "2026-07-28",
+          "actual": 18.0,
+          "forecast": 37.6
         },
         {
-          "date": "2026-04-15",
-          "actual": 2.0,
-          "forecast": 87.0
+          "date": "2026-07-29",
+          "actual": 22.0,
+          "forecast": 28.8
         },
         {
-          "date": "2026-04-16",
-          "actual": 0.0,
-          "forecast": 85.7
+          "date": "2026-07-30",
+          "actual": 39.0,
+          "forecast": 34.6
         },
         {
-          "date": "2026-04-17",
-          "actual": 43.0,
-          "forecast": 86.1
+          "date": "2026-07-31",
+          "actual": 30.0,
+          "forecast": 42.0
         },
         {
-          "date": "2026-04-18",
-          "actual": 259.0,
-          "forecast": 82.0
+          "date": "2026-08-01",
+          "actual": 194.0,
+          "forecast": 255.4
         },
         {
-          "date": "2026-04-19",
-          "actual": 379.0,
-          "forecast": 83.5
+          "date": "2026-08-02",
+          "actual": 140.0,
+          "forecast": 276.8
         },
         {
-          "date": "2026-04-20",
+          "date": "2026-08-03",
+          "actual": 59.0,
+          "forecast": 61.2
+        },
+        {
+          "date": "2026-08-04",
+          "actual": 16.0,
+          "forecast": 39.3
+        },
+        {
+          "date": "2026-08-05",
+          "actual": 21.0,
+          "forecast": 23.1
+        },
+        {
+          "date": "2026-08-06",
+          "actual": 18.0,
+          "forecast": 27.9
+        },
+        {
+          "date": "2026-08-07",
+          "actual": 57.0,
+          "forecast": 21.0
+        },
+        {
+          "date": "2026-08-08",
+          "actual": 189.0,
+          "forecast": 218.1
+        },
+        {
+          "date": "2026-08-09",
+          "actual": 399.0,
+          "forecast": 309.9
+        },
+        {
+          "date": "2026-08-10",
+          "actual": 642.0,
+          "forecast": 119.5
+        },
+        {
+          "date": "2026-08-11",
+          "actual": 333.0,
+          "forecast": 369.5
+        },
+        {
+          "date": "2026-08-12",
+          "actual": 96.0,
+          "forecast": 107.5
+        },
+        {
+          "date": "2026-08-13",
+          "actual": 253.0,
+          "forecast": 96.3
+        },
+        {
+          "date": "2026-08-14",
+          "actual": 112.0,
+          "forecast": 112.3
+        },
+        {
+          "date": "2026-08-15",
+          "actual": 334.0,
+          "forecast": 74.1
+        },
+        {
+          "date": "2026-08-16",
+          "actual": 199.0,
+          "forecast": 320.2
+        },
+        {
+          "date": "2026-08-17",
+          "actual": 92.0,
+          "forecast": 98.8
+        },
+        {
+          "date": "2026-08-18",
           "actual": 35.0,
-          "forecast": 79.3
+          "forecast": 66.6
         },
         {
-          "date": "2026-04-21",
-          "actual": 9.0,
-          "forecast": 81.7
+          "date": "2026-08-19",
+          "actual": 42.0,
+          "forecast": 35.3
         },
         {
-          "date": "2026-04-22",
-          "actual": 34.0,
-          "forecast": 87.0
+          "date": "2026-08-20",
+          "actual": 24.0,
+          "forecast": 45.5
+        },
+        {
+          "date": "2026-08-21",
+          "actual": 32.0,
+          "forecast": 40.0
+        },
+        {
+          "date": "2026-08-22",
+          "actual": 243.0,
+          "forecast": 236.2
+        },
+        {
+          "date": "2026-08-23",
+          "actual": 268.0,
+          "forecast": 263.6
         }
       ],
       "weekly_pacing": [
         {
-          "date": "2026-04-09",
-          "actual": 15.0,
-          "forecast": 85.7,
-          "rate": 0.175,
-          "badge": "CRIT",
-          "label": "Critical"
-        },
-        {
-          "date": "2026-04-10",
-          "actual": 4.0,
-          "forecast": 86.1,
-          "rate": 0.0465,
-          "badge": "CRIT",
-          "label": "Critical"
-        },
-        {
-          "date": "2026-04-11",
-          "actual": 144.0,
-          "forecast": 82.0,
-          "rate": 1.7563,
+          "date": "2026-08-10",
+          "actual": 642.0,
+          "forecast": 119.5,
+          "rate": 5.3713,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-04-12",
-          "actual": 252.0,
-          "forecast": 83.5,
-          "rate": 3.0168,
+          "date": "2026-08-11",
+          "actual": 333.0,
+          "forecast": 369.5,
+          "rate": 0.9013,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-12",
+          "actual": 96.0,
+          "forecast": 107.5,
+          "rate": 0.8927,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-13",
+          "actual": 253.0,
+          "forecast": 96.3,
+          "rate": 2.6284,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-04-13",
-          "actual": 191.0,
-          "forecast": 79.3,
-          "rate": 2.4079,
+          "date": "2026-08-14",
+          "actual": 112.0,
+          "forecast": 112.3,
+          "rate": 0.9975,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-15",
+          "actual": 334.0,
+          "forecast": 74.1,
+          "rate": 4.5068,
           "badge": "HOT",
           "label": "Superb"
         },
         {
-          "date": "2026-04-14",
-          "actual": 20.0,
-          "forecast": 81.7,
-          "rate": 0.2448,
-          "badge": "CRIT",
-          "label": "Critical"
+          "date": "2026-08-16",
+          "actual": 199.0,
+          "forecast": 320.2,
+          "rate": 0.6215,
+          "badge": "WARN",
+          "label": "Warning"
         },
         {
-          "date": "2026-04-15",
-          "actual": 2.0,
-          "forecast": 87.0,
-          "rate": 0.023,
-          "badge": "CRIT",
-          "label": "Critical"
+          "date": "2026-08-17",
+          "actual": 92.0,
+          "forecast": 98.8,
+          "rate": 0.9308,
+          "badge": "OK",
+          "label": "Strong"
         },
         {
-          "date": "2026-04-16",
-          "actual": 0.0,
-          "forecast": 85.7,
-          "rate": 0.0,
-          "badge": "CRIT",
-          "label": "Critical"
-        },
-        {
-          "date": "2026-04-17",
-          "actual": 43.0,
-          "forecast": 86.1,
-          "rate": 0.4994,
-          "badge": "CRIT",
-          "label": "Critical"
-        },
-        {
-          "date": "2026-04-18",
-          "actual": 259.0,
-          "forecast": 82.0,
-          "rate": 3.159,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-19",
-          "actual": 379.0,
-          "forecast": 83.5,
-          "rate": 4.5372,
-          "badge": "HOT",
-          "label": "Superb"
-        },
-        {
-          "date": "2026-04-20",
+          "date": "2026-08-18",
           "actual": 35.0,
-          "forecast": 79.3,
-          "rate": 0.4412,
+          "forecast": 66.6,
+          "rate": 0.5255,
           "badge": "CRIT",
           "label": "Critical"
         },
         {
-          "date": "2026-04-21",
-          "actual": 9.0,
-          "forecast": 81.7,
-          "rate": 0.1102,
+          "date": "2026-08-19",
+          "actual": 42.0,
+          "forecast": 35.3,
+          "rate": 1.1898,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-20",
+          "actual": 24.0,
+          "forecast": 45.5,
+          "rate": 0.5272,
           "badge": "CRIT",
           "label": "Critical"
         },
         {
-          "date": "2026-04-22",
-          "actual": 34.0,
-          "forecast": 87.0,
-          "rate": 0.391,
-          "badge": "CRIT",
-          "label": "Critical"
+          "date": "2026-08-21",
+          "actual": 32.0,
+          "forecast": 40.0,
+          "rate": 0.8002,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-22",
+          "actual": 243.0,
+          "forecast": 236.2,
+          "rate": 1.0289,
+          "badge": "OK",
+          "label": "Strong"
+        },
+        {
+          "date": "2026-08-23",
+          "actual": 268.0,
+          "forecast": 263.6,
+          "rate": 1.0168,
+          "badge": "OK",
+          "label": "Strong"
         }
       ],
-      "nudges": [
-        {
-          "type": "weather",
-          "date": "2026-09-07",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
-          "type": "weather",
-          "date": "2026-09-08",
-          "message": "High rain probability — activate the indoor-activity plan and notify guests in advance."
-        },
-        {
-          "type": "demand",
-          "date": "2026-04-22",
-          "message": "Below-expected pacing — activate an urgent 5-10% OTA discount."
-        }
-      ],
+      "nudges": [],
       "weather_data_is_stale": true,
       "feature_cols": [
         "directions",
@@ -1997,36 +2031,50 @@
         "dow_mean_count",
         "weekend_x_severity",
         "weekend_x_intent",
-        "month"
+        "month",
+        "count_lag1",
+        "count_lag7",
+        "count_roll7",
+        "search_views",
+        "search_views_roll7"
       ],
       "estimated_outlook": [
         {
-          "date": "2026-09-07",
-          "estimated_demand": 29.1,
-          "weather": "雨　時々　くもり",
-          "precipitation_pct": 60,
-          "rain_risk": true,
+          "date": "2026-09-12",
+          "estimated_demand": 295.4,
+          "weather": "くもり　夜のはじめ頃　晴れ",
+          "precipitation_pct": 20,
+          "rain_risk": false,
           "is_estimated": true
         },
         {
-          "date": "2026-09-08",
-          "estimated_demand": 30.2,
-          "weather": "雨　時々　くもり　所により　昼前　から　雷を伴い　激しく　降る",
-          "precipitation_pct": 70,
-          "rain_risk": true,
+          "date": "2026-09-13",
+          "estimated_demand": 281.0,
+          "weather": "くもり　昼過ぎ　から　時々　雨　所により　雷　を伴う",
+          "precipitation_pct": 30,
+          "rain_risk": false,
+          "is_estimated": true
+        },
+        {
+          "date": "2026-09-14",
+          "estimated_demand": 114.3,
+          "weather": "くもり　時々　雨",
+          "precipitation_pct": null,
+          "rain_risk": false,
           "is_estimated": true
         }
       ]
     }
   },
   "aggregate": {
-    "node_count": 3,
-    "opportunity_gap_visitors": 152207,
-    "opportunity_gap_yen": 2102136509,
+    "node_count": 4,
+    "opportunity_gap_visitors": 913199,
+    "opportunity_gap_yen": 12612187021,
     "seasonal_weather_sensitivity_ratio": {
-      "tojinbo": 0.3764,
-      "fukui_station": 0.4357,
-      "rainbow_line": 0.1558
+      "tojinbo": 0.018,
+      "fukui_station": 0.0082,
+      "katsuyama": 0.014,
+      "rainbow_line": 0.0336
     }
   }
 }

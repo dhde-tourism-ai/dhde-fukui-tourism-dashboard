@@ -26,9 +26,17 @@ export interface Past30DaySummary {
   yoy_pct: number | null
 }
 
+export interface ModelAccuracy {
+  /** Walk-forward held-out MAE (mean absolute error), in the node's raw count units. */
+  walk_forward_mae: number | null
+  mean_actual: number
+  mae_pct_of_mean: number | null
+}
+
 export interface NodeSummary {
   past_30_day: Past30DaySummary
   this_week_pacing: PacingStatus
+  model_accuracy?: ModelAccuracy
 }
 
 export interface WeatherStripDay {

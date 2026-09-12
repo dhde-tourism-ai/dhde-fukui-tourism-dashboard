@@ -162,47 +162,96 @@ def standardize_weather_columns(df: pd.DataFrame) -> pd.DataFrame:
  
 # ── Per-node loaders ──────────────────────────────────────────────────────────
  
-def _load_shared_rsi(cfg: dict) -> tuple[pd.DataFrame, str]:
-    """Load the Fukui-wide RSI (route/direction intent) signal.
- 
-    This signal is shared across all 4 nodes — it is loaded once, not
-    per-node — matching how ``spatial.multi_node_analysis`` consumes it.
+RSI_ROUTE_COL = "directions"
+RSI_EXTRA_COLS = ["search_views"]
+
+# Maps a node to the trend-report's per-municipality file (area_<name>_*.csv)
+# covering it, so its RSI signal reflects local search intent instead of a
+# prefecture-wide average. Fukui Station has no matching municipality file
+# in the trend-report dataset (Fukui City isn't one of the tracked areas),
+# so it always falls back to the prefecture-wide total.
+NODE_RSI_AREA = {
+    "tojinbo": "坂井市",       # Sakai City — only tracked from 2026 onward; earlier
+                                # dates fall back to the prefecture-wide total below.
+    "katsuyama": "勝山市",     # Katsuyama City — full history available.
+    "rainbow_line": "美浜町",  # Mihama Town — full history available.
+}
+
+
+def _rsi_year_dirs(rsi_dir: Path) -> list[Path]:
+    return sorted(p for p in rsi_dir.iterdir() if p.is_dir() and p.name.isdigit())
+
+
+def _load_total_rsi(rsi_dir: Path) -> pd.DataFrame:
+    """Load the prefecture-wide RSI signal, concatenated across all years."""
+    frames = []
+    for year_dir in _rsi_year_dirs(rsi_dir):
+        f = year_dir / "total_daily_metrics.csv"
+        if f.exists():
+            frames.append(pd.read_csv(f))
+    if not frames:
+        raise FileNotFoundError(f"No total_daily_metrics.csv found under {rsi_dir} (expected year subfolders).")
+    df = pd.concat(frames, ignore_index=True)
+    df["date"] = pd.to_datetime(df["date"], errors="coerce").dt.normalize()
+    return df.dropna(subset=["date"]).drop_duplicates("date").sort_values("date").reset_index(drop=True)
+
+
+def _load_area_rsi(rsi_dir: Path, area_name: str) -> pd.DataFrame:
+    """Load one municipality's RSI signal, concatenated across whichever
+    years it's tracked in (some areas were added later, e.g. 坂井市 in 2026)."""
+    frames = []
+    for year_dir in _rsi_year_dirs(rsi_dir):
+        matches = list(year_dir.glob(f"area_{area_name}_*.csv"))
+        if matches:
+            frames.append(pd.read_csv(matches[0]))
+    if not frames:
+        return pd.DataFrame(columns=["date", RSI_ROUTE_COL, *RSI_EXTRA_COLS])
+    df = pd.concat(frames, ignore_index=True)
+    df["date"] = pd.to_datetime(df["date"], errors="coerce").dt.normalize()
+    return df.dropna(subset=["date"]).drop_duplicates("date").sort_values("date").reset_index(drop=True)
+
+
+def _load_node_rsi(cfg: dict, node_key: str) -> tuple[pd.DataFrame, str]:
+    """Load per-node RSI (route/direction search-intent) signal.
+
+    Reads directly from ``cfg["paths"]["rsi_data"]`` (the real,
+    multi-year, per-municipality trend-report dataset) instead of an
+    ad-hoc glob across the whole home directory — that glob previously
+    matched a stale, 78-row leftover snapshot in an unrelated Downloads
+    folder before ever reaching the real sibling repo, because the real
+    data lives under year subfolders (``data/2024/``, ``data/2025/``,
+    ...) one level deeper than the glob pattern accounted for. The
+    result was a signal so sparse it was almost entirely a constant
+    fill value — explaining why "directions" (the paper's #1 predictor,
+    β=+0.456) showed near-zero correlation in the dashboard.
+
+    Where the node has a matching municipality file (see
+    ``NODE_RSI_AREA``), its local signal is used, falling back to the
+    prefecture-wide total for any date the area file doesn't cover
+    (rather than the previous behavior of silently filling gaps with a
+    flat median).
     """
     ws = Path(cfg["_resolved"]["workspace_root"])
-    search_roots = [ws, ws.parent, Path("."), Path("..")]
- 
-    rsi_file = None
-    for root in search_roots:
-        matches = list(root.glob("**/fukui-kanko-trend-report/**/data/*.csv"))
-        if matches:
-            rsi_file = matches[0]
-            break
-    if not rsi_file:
-        for root in search_roots:
-            matches = list(root.glob("**/trend.csv"))
-            if matches:
-                rsi_file = matches[0]
-                break
-    if not rsi_file or not rsi_file.exists():
-        raise FileNotFoundError("Cannot locate trend CSV in fukui-kanko-trend-report/public/data.")
- 
-    rsi_df = pd.read_csv(rsi_file)
-    rsi_date_col = find_date_column(rsi_df)
-    rsi_df["date"] = pd.to_datetime(rsi_df[rsi_date_col], errors="coerce").dt.normalize()
-    rsi_df = rsi_df.dropna(subset=["date"])
- 
-    route_col = next(
-        (c for c in rsi_df.columns
-         if "direction" in str(c).lower() or "route" in str(c).lower() or "東尋坊" in str(c)),
-        None,
+    rsi_dir = ws / cfg["paths"]["rsi_data"]
+    total = _load_total_rsi(rsi_dir)[["date", RSI_ROUTE_COL, *RSI_EXTRA_COLS]]
+
+    area_name = NODE_RSI_AREA.get(node_key)
+    if not area_name:
+        return total, RSI_ROUTE_COL
+
+    area_df = _load_area_rsi(rsi_dir, area_name)
+    if area_df.empty:
+        return total, RSI_ROUTE_COL
+
+    area_cols = {c: f"{c}__area" for c in (RSI_ROUTE_COL, *RSI_EXTRA_COLS)}
+    merged = pd.merge(
+        total, area_df[["date", *area_cols]].rename(columns=area_cols),
+        on="date", how="left",
     )
-    if not route_col:
-        route_col = [
-            c for c in rsi_df.columns
-            if c not in ("date", rsi_date_col) and pd.api.types.is_numeric_dtype(rsi_df[c])
-        ][0]
- 
-    return rsi_df[["date", route_col]].drop_duplicates("date"), route_col
+    for col, area_col in area_cols.items():
+        merged[col] = merged[area_col].fillna(merged[col])
+        merged = merged.drop(columns=[area_col])
+    return merged, RSI_ROUTE_COL
  
  
 def _resolve_hotel_csv_path(cfg: dict) -> Path | None:
@@ -256,15 +305,18 @@ def _load_node_weather(cfg: dict, node_key: str) -> pd.DataFrame:
 def _merge_node_daily(
     counts: pd.DataFrame,
     weather: pd.DataFrame,
-    rsi_clean: pd.DataFrame,
+    rsi_df: pd.DataFrame,
     route_col: str,
 ) -> pd.DataFrame:
-    """Merge one node's camera counts + weather + shared RSI intent signal."""
+    """Merge one node's camera counts + weather + its RSI intent signal."""
     daily = pd.merge(counts[["date", "count"]], weather, on="date", how="left")
-    daily = pd.merge(daily, rsi_clean, on="date", how="left")
-    daily[route_col] = daily[route_col].fillna(
-        daily[route_col].median() if not daily[route_col].dropna().empty else 0.0
-    )
+    daily = pd.merge(daily, rsi_df, on="date", how="left")
+    for col in [route_col, *RSI_EXTRA_COLS]:
+        if col not in daily.columns:
+            continue
+        daily[col] = daily[col].fillna(
+            daily[col].median() if not daily[col].dropna().empty else 0.0
+        )
  
     # Guarantee all standard weather columns are present and filled. Node
     # weather CSVs (via spatial._load_node_weather_daily) carry temp/precip/
@@ -305,6 +357,46 @@ def compute_pacing_status(current_bookings: float, model_forecast: float) -> dic
     return {"rate": round(rate, 4), "badge": badge, "label": label}
  
  
+WALKFORWARD_MIN_TRAIN_FRAC = 0.50  # require this much history before the first backtest fold
+WALKFORWARD_MIN_TRAIN_DAYS = 60
+WALKFORWARD_REFIT_STEP = 30  # days per fold; re-fit on an expanding window each fold
+
+DASHBOARD_ONLY_FEATURE_COLS = ["count_lag1", "count_lag7", "count_roll7", "search_views", "search_views_roll7"]
+
+
+def add_dashboard_only_features(df: pd.DataFrame, feature_cols: list[str]) -> tuple[pd.DataFrame, list[str]]:
+    """Layer dashboard-only features on top of ``build_features``'s output.
+
+    This deliberately does NOT touch ``src/feature_engineering.py`` —
+    that module also backs the published academic pipeline
+    (``src/run_analysis.py``), whose reported OLS/RF metrics must stay
+    reproducible against the paper's methodology, and its ``models.py``
+    LDV model already adds its own ``count_lag1`` on top of
+    ``feature_cols`` (``ldv_feats = feature_cols + ["count_lag1"]``),
+    which would collide with a duplicate column if added upstream.
+
+    Adds:
+    - ``count_lag1``/``count_lag7``/``count_roll7``: without an
+      autoregressive feature on the target itself, the RF has no memory
+      of recent actual traffic and a naive "yesterday's count" baseline
+      reliably beat it on true held-out data (e.g. Fukui Station: naive
+      MAE 1859 vs. RF MAE 2473 on the held-out 20%).
+    - ``search_views``/``search_views_roll7``: the trend-report dataset
+      (``_load_node_rsi``) carries this alongside ``directions`` but it
+      was previously discarded entirely — same-day raw value plus a
+      shifted 7-day rolling mean, mirroring how ``route_col`` itself is
+      used same-day elsewhere in ``feature_cols``.
+    """
+    df = df.sort_values("date").reset_index(drop=True)
+    df["count_lag1"] = df["count"].shift(1)
+    df["count_lag7"] = df["count"].shift(7)
+    df["count_roll7"] = df["count"].shift(1).rolling(7, min_periods=1).mean()
+    if "search_views" in df.columns:
+        df["search_views_roll7"] = df["search_views"].shift(1).rolling(7, min_periods=1).mean()
+    extra = [c for c in DASHBOARD_ONLY_FEATURE_COLS if c not in feature_cols and c in df.columns]
+    return df, feature_cols + extra
+
+
 def train_and_predict(
     daily: pd.DataFrame,
     route_col: str,
@@ -313,19 +405,70 @@ def train_and_predict(
     node_key: str,
     hotel_df: pd.DataFrame | None = None,
 ):
+    """Fit the per-node demand model and produce actual-vs-forecast history.
+
+    Two different models are used on purpose, because a single static
+    80/20 split was the root cause of the dashboard showing badly-wrong
+    forecasts: the model was fit once on the first 80% of history and
+    then asked to predict the *entire* series including months of data
+    it never trained on — every point on the displayed chart was
+    effectively a stale, months-old extrapolation with no way to tell.
+
+    - A walk-forward backtest (expanding window, re-fit every
+      ``WALKFORWARD_REFIT_STEP`` days) produces the ``forecast`` column
+      used for the "Actual vs. Model Forecast" chart, so every displayed
+      point is a genuine out-of-sample prediction from a model that had
+      not yet seen that day.
+    - ``final_model``, returned separately, is re-fit on *all* available
+      history and is what actually powers the forward-looking outlook
+      (see ``build_estimated_outlook``) — so near-term predictions are
+      always informed by the most recent data, not by whatever the
+      training cutoff happened to be months ago.
+    """
     df, feature_cols = build_features(
         daily, route_col, reporter, node_key=node_key, hotel_reservations=hotel_df,
     )
-    clean = df[["date", "count"] + feature_cols].dropna().reset_index(drop=True)
-    split_idx = int(len(clean) * 0.80)
-    train = clean.iloc[:split_idx]
- 
-    model = RandomForestRegressor(**RF_PARAMS)
-    model.fit(train[feature_cols], train["count"])
- 
-    clean = clean.copy()
-    clean["forecast"] = model.predict(clean[feature_cols])
-    return clean[["date", "count", "forecast"]], model, feature_cols
+    df, feature_cols = add_dashboard_only_features(df, feature_cols)
+    clean_full = df[["date", "count"] + feature_cols].dropna().reset_index(drop=True)
+    n = len(clean_full)
+    min_train = max(int(n * WALKFORWARD_MIN_TRAIN_FRAC), WALKFORWARD_MIN_TRAIN_DAYS)
+
+    if min_train >= n:
+        # Not enough history for even one walk-forward fold (new/short-lived
+        # node) — fall back to a plain 80/20 split so the dashboard still
+        # renders something instead of an empty chart.
+        reporter.log(f"[{node_key}] history too short ({n} rows) for walk-forward backtest; using a single 80/20 split")
+        min_train = max(int(n * 0.80), 1)
+
+    forecast = pd.Series(index=clean_full.index, dtype=float)
+    abs_errors: list[float] = []
+    cursor = min_train
+    while cursor < n:
+        end = min(cursor + WALKFORWARD_REFIT_STEP, n)
+        train_slice = clean_full.iloc[:cursor]
+        test_slice = clean_full.iloc[cursor:end]
+        fold_model = RandomForestRegressor(**RF_PARAMS)
+        fold_model.fit(train_slice[feature_cols], train_slice["count"])
+        preds = fold_model.predict(test_slice[feature_cols])
+        forecast.iloc[cursor:end] = preds
+        abs_errors.extend(abs(test_slice["count"].to_numpy() - preds))
+        cursor = end
+
+    holdout_mae = float(sum(abs_errors) / len(abs_errors)) if abs_errors else None
+    if holdout_mae is not None:
+        reporter.log(f"[{node_key}] walk-forward held-out MAE = {holdout_mae:.1f}")
+    else:
+        reporter.log(f"[{node_key}] not enough history for a walk-forward backtest fold")
+
+    # Rows before the first fold have no genuine out-of-sample forecast —
+    # drop them from what's displayed rather than fabricate a number.
+    clean = clean_full.iloc[min_train:].copy().reset_index(drop=True)
+    clean["forecast"] = forecast.iloc[min_train:].reset_index(drop=True)
+
+    final_model = RandomForestRegressor(**RF_PARAMS)
+    final_model.fit(clean_full[feature_cols], clean_full["count"])
+
+    return clean[["date", "count", "forecast"]], final_model, feature_cols, holdout_mae
  
  
 def build_estimated_outlook(
@@ -351,7 +494,16 @@ def build_estimated_outlook(
     baseline_sun = recent["sun"].mean() if "sun" in recent else 5.0
     baseline_wind = recent["wind"].mean() if "wind" in recent else 3.0
     recent_route_values = daily.sort_values("date")[route_col].dropna().tail(7).tolist()
- 
+    recent_search_views = (
+        daily.sort_values("date")["search_views"].dropna().tail(7).tolist()
+        if "search_views" in daily.columns else []
+    )
+    # Seeds the recursive count_lag1/count_lag7/count_roll7 features below:
+    # each predicted day's demand is appended so later days in this same
+    # forecast horizon see it as history, the same way a walk-forward
+    # multi-step forecast would.
+    recent_counts = daily.sort_values("date")["count"].dropna().tail(7).tolist()
+
     # Hotel baseline only means anything for Node B — for every other node
     # feature_cols simply won't contain the hotel_* keys below, so these
     # values are computed but never selected into the model input.
@@ -402,12 +554,21 @@ def build_estimated_outlook(
             "hotel_checkin_lag1": base_hotel_checkin,
             "hotel_checkin_lag7": base_hotel_checkin,
             "hotel_checkin_roll7": base_hotel_checkin,
+            "count_lag1": recent_counts[-1] if recent_counts else overall_mean,
+            "count_lag7": recent_counts[-7] if len(recent_counts) >= 7 else (recent_counts[0] if recent_counts else overall_mean),
+            "count_roll7": (sum(recent_counts[-7:]) / len(recent_counts[-7:])) if recent_counts else overall_mean,
+            "search_views": recent_search_views[-1] if recent_search_views else 0.0,
+            "search_views_roll7": (sum(recent_search_views) / len(recent_search_views)) if recent_search_views else 0.0,
         }
         X = pd.DataFrame([feature_row])[feature_cols]
         if X.isnull().any(axis=None):
             continue
         predicted = float(model.predict(X)[0])
- 
+        # Feed this prediction back in as history for the next iteration's
+        # count_lag1/count_lag7/count_roll7 — a standard recursive
+        # multi-step forecast, since real future counts don't exist yet.
+        recent_counts.append(predicted)
+
         rows.append({
             "date": day["date"],
             "estimated_demand": round(predicted, 1),
@@ -484,9 +645,8 @@ def build_nudges(weather: list[dict], weekly_pacing: list[dict]) -> list[dict]:
  
  
 def build_dashboard_payload(cfg: dict, reporter: Reporter) -> dict:
-    print("[1/5] Loading shared RSI intent signal (Fukui-wide tourism intent)...")
-    rsi_clean, route_col = _load_shared_rsi(cfg)
- 
+    print("[1/5] Loading per-node RSI intent signal (per-municipality where available)...")
+
     print("[2/5] Loading Node B hotel reservation telemetry (latest_rsv_sum.csv)...")
     hotel_csv = _resolve_hotel_csv_path(cfg)
     hotel_df = load_hotel_reservations(hotel_csv) if hotel_csv else pd.DataFrame()
@@ -510,16 +670,27 @@ def build_dashboard_payload(cfg: dict, reporter: Reporter) -> dict:
         if counts.empty:
             reporter.log(f"[{node_key}] Skipped — no usable count data ({node['label']}).")
             continue
- 
-        daily = _merge_node_daily(counts, weather, rsi_clean, route_col)
- 
+
+        rsi_df, route_col = _load_node_rsi(cfg, node_key)
+        daily = _merge_node_daily(counts, weather, rsi_df, route_col)
+
         node_hotel_df = hotel_df if node_key == HOTEL_FEATURE_NODE else None
-        pred, model, feature_cols = train_and_predict(
+        pred, model, feature_cols, holdout_mae = train_and_predict(
             daily, route_col, reporter, node_key=node_key, hotel_df=node_hotel_df,
         )
- 
+
         weather_is_stale = is_local_weather_stale(daily)
         summary = build_summary(pred)
+        mean_actual = float(pred["count"].mean()) if not pred.empty else 0.0
+        summary["model_accuracy"] = {
+            "walk_forward_mae": round(holdout_mae, 1) if holdout_mae is not None else None,
+            "mean_actual": round(mean_actual, 1),
+            "mae_pct_of_mean": (
+                round(holdout_mae / mean_actual * 100, 1)
+                if holdout_mae is not None and mean_actual
+                else None
+            ),
+        }
         weekly_pacing = build_weekly_pacing(pred)
         nudges = build_nudges(weather_forecast, weekly_pacing)
  
@@ -555,7 +726,7 @@ def build_dashboard_payload(cfg: dict, reporter: Reporter) -> dict:
  
         print(f"[5/5] Computing opportunity-gap / weather-sensitivity metrics for '{node_key}'...")
         node_metrics[node_key] = build_node_metrics(
-            node["label"], counts, weather, rsi_clean, route_col, spending, reporter,
+            node["label"], counts, weather, rsi_df, route_col, spending, reporter,
         )
  
     valid_metrics = {k: v for k, v in node_metrics.items() if v is not None}

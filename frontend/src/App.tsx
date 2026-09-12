@@ -30,6 +30,12 @@ function badgeLabel(b: string): string {
   return map[b] || b;
 }
 
+function accuracyBadge(pct: number): 'OK' | 'WARN' | 'CRIT' {
+  if (pct <= 20) return 'OK';
+  if (pct <= 45) return 'WARN';
+  return 'CRIT';
+}
+
 export default function App() {
   const hookResult = useDashboardData();
   // Support either isLoading or loading property names
@@ -68,6 +74,7 @@ export default function App() {
   const summary = activeNodeData?.summary || (data as any).summary || defaultNode?.summary || {};
   const p30 = summary.past_30_day || {};
   const week = summary.this_week_pacing || {};
+  const modelAccuracy = summary.model_accuracy;
   const weatherStrip = activeNodeData?.weather_strip || (data as any).weather_strip || defaultNode?.weather_strip || [];
   const demandForecast = activeNodeData?.demand_forecast || (data as any).demand_forecast || defaultNode?.demand_forecast || [];
   const estimatedOutlook = activeNodeData?.estimated_outlook || (data as any).estimated_outlook || defaultNode?.estimated_outlook || [];
@@ -225,8 +232,18 @@ export default function App() {
           <div>
             <div className="section-title">Actual vs. Model Forecast</div>
           </div>
-          <div className="section-sub">
-            Last 60 days · Random Forest {selectedNode === ('fukui_station' as NodeKey) ? '(with Hotel Reservation Lags)' : ''}
+          <div className="section-sub" style={{ display: 'flex', alignItems: 'center', gap: '.6rem', flexWrap: 'wrap' }}>
+            <span>
+              Last 60 days · Random Forest {selectedNode === ('fukui_station' as NodeKey) ? '(with Hotel Reservation Lags)' : ''}
+            </span>
+            {modelAccuracy && modelAccuracy.mae_pct_of_mean !== null && (
+              <span
+                className={`badge badge-${accuracyBadge(modelAccuracy.mae_pct_of_mean)}`}
+                title="Mean absolute error from walk-forward backtesting (expanding-window refits), as a % of the average daily count — i.e. genuine out-of-sample accuracy, not an in-sample fit."
+              >
+                Model accuracy: ±{modelAccuracy.mae_pct_of_mean.toFixed(0)}% MAE
+              </span>
+            )}
           </div>
         </div>
         <div className="chart-card">
